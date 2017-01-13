@@ -33,7 +33,7 @@ public class Login extends Activity {
         //Typeface beba = Typeface.createFromAsset(getAssets(), "fonts/BebasKai-Regular.otf");
         Typeface maven = Typeface.createFromAsset(getAssets(), "fonts/MavenPro-Regular.ttf");
 
-
+        System.out.println("Hola entro");
 
 
         final EditText etUsuarioL = (EditText) findViewById(R.id.etUsuarioLog);
