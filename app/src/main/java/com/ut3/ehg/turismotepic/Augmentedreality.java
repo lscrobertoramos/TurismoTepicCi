@@ -136,12 +136,12 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
         }
     }
 
-    @Override
+   @Override
     protected void onPause() {
         super.onPause();
         if ( this.architectView != null ) {
             this.architectView.onPause();
-            if ( this.sensorAccuracyListener != null ) {
+           if ( this.sensorAccuracyListener != null ) {
                 this.architectView.unregisterSensorAccuracyChangeListener(this.sensorAccuracyListener);
             }
         }
@@ -149,6 +149,8 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
             this.locationProvider.onPause();
         }
     }
+
+
 
     @Override
     protected void onDestroy() {

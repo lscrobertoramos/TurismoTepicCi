@@ -11,12 +11,18 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,8 +130,32 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Direct
 
     @Override
     public void onDirectionFinderStart() {
-        progressDialog = ProgressDialog.show(getContext(), "Espera",
-                "Buscando las indicaciones", true);
+        if(isOnlineNet()){
+            //System.out.println("hay internet");
+            progressDialog = ProgressDialog.show(getContext(), "Espera",
+                    "Buscando las indicaciones", true);
+        }
+        else
+        {
+            ///System.out.println("No hay intenerwe");
+            Toast.makeText(getActivity(), "Su dispositivo no tiene conexion a internet, por favor habilitelo", Toast.LENGTH_LONG).show();
+
+            new CountDownTimer(4000, 4000) {
+                public void onTick(long millisUntilFinished) {
+
+                }
+                public void onFinish() {
+
+                    String fragmentTemp="com.ut3.ehg.turismotepic.HomeActivity";
+                    DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+                    FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
+                    tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp));
+                    tx.commit();
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+            }.start();
+            //getActivity().getSupportFragmentManager().popBackStack();
+        }
 
         if (originMarkers != null) {
             for (Marker marker : originMarkers) {
@@ -146,6 +176,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Direct
         }
 
     }
+
 
     @Override
     public void onDirectionFinderSuccess(List<Route> routes) {
@@ -221,5 +252,31 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Direct
 
         }
         return icono;
+    }
+
+    public Boolean isOnlineNet() {
+
+        try {
+            Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.es");
+
+            int val           = p.waitFor();
+            boolean reachable = (val == 0);
+            return reachable;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean isNetDisponible() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
+
+        return (actNetInfo != null && actNetInfo.isConnected());
     }
 }

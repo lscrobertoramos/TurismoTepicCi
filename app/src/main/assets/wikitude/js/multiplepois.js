@@ -200,7 +200,7 @@ var World = {
 	requestDataFromLocal: function requestDataFromLocalFn(centerPointLatitude, centerPointLongitude, centerPointAltitude) {
 
 		// cuantos puntos crear
-		var poisToCreate = 5;
+		var poisToCreate = 12;
 		var poisID=[];
 		AR.logger.warning("Altitud" + centerPointAltitude);
 		for(var i=0;i<descripcion.length;i++){
