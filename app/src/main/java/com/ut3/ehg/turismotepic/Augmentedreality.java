@@ -115,7 +115,7 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
             try {
                 this.architectView.load( this.getARchitectWorldPath() );
                 // rango de visio del poi
-                this.architectView.setCullingDistance(50 * 1000); /* 50km */
+                this.architectView.setCullingDistance(4 * 1000); /* 4km */
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

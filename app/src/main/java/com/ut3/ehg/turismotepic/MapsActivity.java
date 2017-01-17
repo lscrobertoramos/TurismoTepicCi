@@ -130,10 +130,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Direct
 
     @Override
     public void onDirectionFinderStart() {
-        if(isOnlineNet()){
+      /*  if(isNetDisponible()){
             //System.out.println("hay internet");
-            progressDialog = ProgressDialog.show(getContext(), "Espera",
-                    "Buscando las indicaciones", true);
+
         }
         else
         {
@@ -156,7 +155,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Direct
             }.start();
             //getActivity().getSupportFragmentManager().popBackStack();
         }
-
+        */
+        progressDialog = ProgressDialog.show(getContext(), "Espera",
+                "Buscando las indicaciones", true);
         if (originMarkers != null) {
             for (Marker marker : originMarkers) {
                 marker.remove();

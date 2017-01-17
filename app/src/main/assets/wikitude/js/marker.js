@@ -56,7 +56,7 @@ function Marker(poiData,drawable) {
     this.markerObject = new AR.GeoObject(markerLocation, {
     // quitar titulo y dejar el puro icono
         drawables: {
-            cam: [this.markerDrawable_idle, this.markerDrawable_selected, this.titleLabel,this.descriptionLabel]
+            cam: [this.markerDrawable_idle, this.markerDrawable_selected]
             //cam: [this.markerDrawable_idle, this.markerDrawable_selected, this.titleLabel, this.descriptionLabel]
         }
     });
