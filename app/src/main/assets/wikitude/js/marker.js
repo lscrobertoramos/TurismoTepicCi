@@ -51,12 +51,36 @@ function Marker(poiData,drawable) {
         }
     });
 
+//radar
+
+ this.radarCircle = new AR.Circle(0.03, {
+        horizontalAnchor: AR.CONST.HORIZONTAL_ANCHOR.CENTER,
+        opacity: 0.8,
+        style: {
+            fillColor: "#ffffff"
+        }
+    });
+
+    this.radarCircleSelected = new AR.Circle(0.05, {
+        horizontalAnchor: AR.CONST.HORIZONTAL_ANCHOR.CENTER,
+        opacity: 0.8,
+        style: {
+            fillColor: "#0066ff"
+        }
+    });
+
+    this.radardrawables = [];
+    this.radardrawables.push(this.radarCircle);
+
+//
 
     // create the AR.GeoObject with the drawable objects
     this.markerObject = new AR.GeoObject(markerLocation, {
     // quitar titulo y dejar el puro icono
         drawables: {
-            cam: [this.markerDrawable_idle, this.markerDrawable_selected]
+            cam: [this.markerDrawable_idle, this.markerDrawable_selected],
+            indicator: this.directionIndicatorDrawable,
+                                    radar: this.radardrawables
             //cam: [this.markerDrawable_idle, this.markerDrawable_selected, this.titleLabel, this.descriptionLabel]
         }
     });

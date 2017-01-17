@@ -73,15 +73,21 @@ var World = {
 
 	// called to inject new POI data
 	loadPoisFromJsonData: function loadPoisFromJsonDataFn(poiData) {
+
+		//show radar & set click-listener
+                		PoiRadar.show();
+                		$('#radarContainer').unbind('click');
+
 		// empty list of visible markers
 		World.markerList = [];
-		AR.context.destroyAll();
+		//AR.context.destroyAll();
 
 		// start loading marker assets
 		//World.markerDrawable_idle = new AR.ImageResource("assets/marker_idle.png");
 		
 			World.markerDrawable_idle = new AR.ImageResource("assets/farmacias.png");
 			World.markerDrawable_selected = new AR.ImageResource("assets/cuadro.png");
+			World.markerDrawable_directionIndicator = new AR.ImageResource("assets/indi.png");
 		// loop through POI-information and create an AR.GeoObject (=Marker) per POI
 		for (var currentPlaceNr = 0; currentPlaceNr < poiData.length; currentPlaceNr++){
 			drawable = fondo(parseInt(poiData[currentPlaceNr].cat));

@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.CountDownTimer;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -18,6 +21,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.ut3.ehg.turismotepic.rc.rc_pois;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -81,18 +86,53 @@ public class DetalladoActivity extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        String loc = datos.getString(5)+","+datos.getString(6);
-        String fragmentTemp="com.ut3.ehg.turismotepic.MapsActivity";
-        DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp)).addToBackStack("tag");
-        tx.commit();
-        drawer.closeDrawer(GravityCompat.START);
-        ubic = getContext().getSharedPreferences("ubic",MODE_PRIVATE);
-        editarUbic=ubic.edit();
-        editarUbic.putString("loc",loc);
-        editarUbic.putInt("cat",cat);
-        editarUbic.putString("destino",destino);
-        editarUbic.commit();
+
+        if(isNetDisponible()){
+            //System.out.println("hay internet");
+            String loc = datos.getString(5)+","+datos.getString(6);
+            String fragmentTemp="com.ut3.ehg.turismotepic.MapsActivity";
+            DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+            FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
+            tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp)).addToBackStack("tag");
+            tx.commit();
+            drawer.closeDrawer(GravityCompat.START);
+            ubic = getContext().getSharedPreferences("ubic",MODE_PRIVATE);
+            editarUbic=ubic.edit();
+            editarUbic.putString("loc",loc);
+            editarUbic.putInt("cat",cat);
+            editarUbic.putString("destino",destino);
+            editarUbic.commit();
+        }
+        else
+        {
+            ///System.out.println("No hay intenerwe");
+            Toast.makeText(getActivity(), "Su dispositivo no tiene conexion a internet, por favor habilitelo", Toast.LENGTH_LONG).show();
+
+           /* new CountDownTimer(4000, 4000) {
+                public void onTick(long millisUntilFinished) {
+
+                }
+                public void onFinish() {
+
+                    String fragmentTemp="com.ut3.ehg.turismotepic.HomeActivity";
+                    DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+                    FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
+                    tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp));
+                    tx.commit();
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+            }.start();*/
+            //getActivity().getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    private boolean isNetDisponible() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
+
+        return (actNetInfo != null && actNetInfo.isConnected());
     }
 }

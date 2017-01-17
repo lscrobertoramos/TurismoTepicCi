@@ -130,32 +130,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Direct
 
     @Override
     public void onDirectionFinderStart() {
-      /*  if(isNetDisponible()){
-            //System.out.println("hay internet");
 
-        }
-        else
-        {
-            ///System.out.println("No hay intenerwe");
-            Toast.makeText(getActivity(), "Su dispositivo no tiene conexion a internet, por favor habilitelo", Toast.LENGTH_LONG).show();
-
-            new CountDownTimer(4000, 4000) {
-                public void onTick(long millisUntilFinished) {
-
-                }
-                public void onFinish() {
-
-                    String fragmentTemp="com.ut3.ehg.turismotepic.HomeActivity";
-                    DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-                    FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
-                    tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp));
-                    tx.commit();
-                    drawer.closeDrawer(GravityCompat.START);
-                }
-            }.start();
-            //getActivity().getSupportFragmentManager().popBackStack();
-        }
-        */
         progressDialog = ProgressDialog.show(getContext(), "Espera",
                 "Buscando las indicaciones", true);
         if (originMarkers != null) {
@@ -271,13 +246,5 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Direct
         return false;
     }
 
-    private boolean isNetDisponible() {
 
-        ConnectivityManager connectivityManager = (ConnectivityManager)
-                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
-
-        return (actNetInfo != null && actNetInfo.isConnected());
-    }
 }
