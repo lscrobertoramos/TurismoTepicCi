@@ -1,19 +1,24 @@
 package com.ut3.ehg.turismotepic;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,19 +42,26 @@ public class DetalladoActivity extends Fragment implements View.OnClickListener 
     SharedPreferences.Editor editarUbic;
     int cat;
     String destino;
+    LocationManager locationManager;
+
+    //LocationManager locationManager;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final AppBarLayout appBarLayout;
+        //final AppBarLayout appBarLayout;
         root = (ViewGroup) inflater.inflate(R.layout.activity_detallado, null);
         cntx = container.getContext();
         poi=this.getActivity().getSharedPreferences("poi",MODE_PRIVATE);
 
 
+        //Pata detectar el funcionamiento del GPS
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+
         ImageView iv1 = (ImageView)root.findViewById(R.id.iv1);
         String idPlace=poi.getString("idPoi","");
         TextView nombre = (TextView)root.findViewById(R.id.lugar);
-        TextView posicion= (TextView)root.findViewById(R.id.posicion);
+        //TextView posicion= (TextView)root.findViewById(R.id.posicion);
         TextView horario =(TextView)root.findViewById(R.id.horario);
         TextView costo=(TextView)root.findViewById(R.id.costo);
         //TextView descripcion=(TextView)root.findViewById(R.id.descripcion);
@@ -86,6 +98,8 @@ public class DetalladoActivity extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+
+        //checkLocation();
 
         if(isNetDisponible()){
             //System.out.println("hay internet");
@@ -126,6 +140,8 @@ public class DetalladoActivity extends Fragment implements View.OnClickListener 
         }
     }
 
+
+    // Funcion para revisar si el dispositivo esta conectado a internet
     private boolean isNetDisponible() {
 
         ConnectivityManager connectivityManager = (ConnectivityManager)
@@ -135,4 +151,61 @@ public class DetalladoActivity extends Fragment implements View.OnClickListener 
 
         return (actNetInfo != null && actNetInfo.isConnected());
     }
+
+    private boolean checkLocation() {
+        if (!isLocationEnabled())
+            showAlert();
+        return isLocationEnabled();
+    }
+
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setTitle("Enable Location")
+                .setMessage("Su ubicación esta desactivada.\npor favor active su ubicación " +
+                        "usa esta app")
+                .setPositiveButton("Configuración de ubicación", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
+    }
+
+    private boolean isLocationEnabled() {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+
+
+/*
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Enable Location")
+                .setMessage("Su ubicación esta desactivada.\npor favor active su ubicación " +
+                        "usa esta app")
+                .setPositiveButton("Configuración de ubicación", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
+    }
+    */
+
+
 }

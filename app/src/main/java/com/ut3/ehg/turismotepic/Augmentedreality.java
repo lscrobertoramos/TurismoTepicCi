@@ -53,7 +53,7 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
         System.out.println();
 
 
-        JSONArray jsonArray = new JSONArray(array);
+        //JSONArray jsonArray = new JSONArray(array);
 
         //System.out.println(jsonArray);
 

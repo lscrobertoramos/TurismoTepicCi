@@ -28,13 +28,13 @@ public class CategoriaActivity extends Fragment implements ListView.OnItemClickL
     ArrayList<String> listaPoisid;
     ViewGroup root;
     Context cntx;
-    FloatingActionButton fab;
+    //FloatingActionButton fab;
     SharedPreferences cat,poi;
-    SharedPreferences.Editor editarCat,editarPoi;
+    SharedPreferences.Editor editarCat;//,editarPoi;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final AppBarLayout appBarLayout;
+        //final AppBarLayout appBarLayout;
         root = (ViewGroup) inflater.inflate(R.layout.activity_categoria, null);
         cntx = container.getContext();
 
@@ -49,7 +49,7 @@ public class CategoriaActivity extends Fragment implements ListView.OnItemClickL
         TextView tvCat=(TextView)root.findViewById(R.id.tvCategoria);
         ArrayList<String> listaPois=pois.obtenerPois(idCat);
         listaPoisid=pois.obtenerPoisId(idCat);
-        TextView acompa = (TextView) root.findViewById(R.id.tvTexto_spPoi);
+        //TextView acompa = (TextView) root.findViewById(R.id.tvTexto_spPoi);
         ArrayAdapter<String> adp = new ArrayAdapter<String>(getActivity(),R.layout.sp_poi,R.id.tvTexto_spPoi,listaPois);
         lvPois.setOnItemClickListener(this);
         lvPois.setAdapter(adp);
