@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
-            android:text="@string/pregp"
+            android:text="@string/q1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
@@ -122,7 +122,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pregp"
+                android:text="@string/q2"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:textColor="#000"
@@ -172,7 +172,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pregp"
+                android:text="@string/q3"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
@@ -221,7 +221,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pregp"
+                android:text="@string/q4"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
@@ -262,14 +262,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tp5preg5"
                 android:gravity="center"
-                android:text="@string/tpreg5"
+                android:text="@string/title_opinion"
                 android:textColor="#000"
                 android:layout_marginBottom="5dp"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pregp"
+                android:text="@string/opinion"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
@@ -285,14 +285,15 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 >
-                <RatingBar
+
+                <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ratingb5"
-                    android:rating="3.5"
-                    android:stepSize="0.5"
-                    style="@style/StarRatingBar"
-                    />
+                    android:inputType="textPersonName"
+                    android:text=""
+                    android:ems="10"
+                    android:id="@+id/editText3"
+                    android:layout_weight="1" />
 
 
             </LinearLayout>

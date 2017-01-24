@@ -56,6 +56,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.*;
+import java.util.logging.Handler;
 
 import Modules.DirectionFinder;
 import Modules.DirectionFinderListener;
@@ -76,7 +77,7 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 200 * 60 * 1; // 12 segundos y se actualiza ***1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 12 segundos y se actualiza ***1 minute
     private LocationManager mLocationManager;
 
 
@@ -90,6 +91,12 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     Location location;
     LocationManager lm;
 
+    //prueba
+    public Criteria criteria;
+    public String bestProvider;
+    Intent intentThatCalled;
+    String voice2text;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final AppBarLayout appBarLayout;
@@ -97,11 +104,12 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
         cntx = container.getContext();
 
         //System.out.println(onLocationChanged(location);
-        ruta();
+
+        //getLocation();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        sendRequest();
+       // sendRequest();
 
         return root;
     }
@@ -196,8 +204,13 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
 
     @Override
     public void onDirectionFinderStart() {
-        progressDialog = ProgressDialog.show(getContext(), "Espera",
+       progressDialog = ProgressDialog.show(getContext(), "Espera",
                 "Buscando las indicaciones", true);
+
+
+
+
+
         if (originMarkers != null) {
             for (Marker marker : originMarkers) {
                 marker.remove();
@@ -298,38 +311,74 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     }
 
 
-    public void ruta() {
 
-        lm = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+
+
+
+
+
+    public void getLocation() {
+       // lm = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+        //Adecuaciones
+        criteria = new Criteria();
+        bestProvider = String.valueOf(mLocationManager.getBestProvider(criteria, false)).toString();
+//
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             } else {
-                location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                location = mLocationManager.getLastKnownLocation(bestProvider);
                 //location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
             }
 
         } else {
-             location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+             location = mLocationManager.getLastKnownLocation(bestProvider);
             //location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         }
 
+
+        //prueba
+        if (location != null) {
+            Log.e("TAG", "GPS is on");
+            //latitude = location.getLatitude();
+            //longitude = location.getLongitude();
+            latitud = String.valueOf(location.getLatitude());
+            longitud = String.valueOf(location.getLongitude());
+           // sendRequest();
+
+
+        }
+        else{
+            //This is what you need:
+            //mLocationManager.requestLocationUpdates(bestProvider, 1000, 0, this);
+
+        }
+
+/*
         latitud = String.valueOf(location.getLatitude());
         longitud = String.valueOf(location.getLongitude());
         System.out.println("Ubicacion: "+latitud+","+longitud);
         //Toast.makeText(getActivity(), "Ubicacion: "+latitud+","+longitud, Toast.LENGTH_LONG).show();
-
+*/
 
     }
 
     @Override
     public void onLocationChanged(Location location) {
+
+
+
+
         Log.i(TAG,"entro"+ String.valueOf(location.getLatitude()));
         Log.i(TAG, "entro" + String.valueOf(location.getLongitude()));
 
         latitud = String.valueOf(location.getLatitude());
         longitud = String.valueOf(location.getLongitude());
+
         sendRequest();
+
 
         /*
         //when the location changes, update the map by zooming to the location

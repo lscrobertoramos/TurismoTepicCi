@@ -42,7 +42,7 @@ public class EncuestaActivity extends Fragment {
         rb2 = (RatingBar) root.findViewById(R.id.ratingb2);
         rb3 = (RatingBar) root.findViewById(R.id.ratingb3);
         rb4 = (RatingBar) root.findViewById(R.id.ratingb4);
-        rb5 = (RatingBar) root.findViewById(R.id.ratingb5);
+        //rb5 = (RatingBar) root.findViewById(R.id.ratingb5);
         btnEnviar = (ImageButton) root.findViewById(R.id.btnEnviar);
         user=this.getActivity().getSharedPreferences("user", MODE_PRIVATE);
         loginPreferences = this.getActivity().getSharedPreferences("loginPrefs",MODE_PRIVATE);

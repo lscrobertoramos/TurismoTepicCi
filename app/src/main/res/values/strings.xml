@@ -9,10 +9,10 @@
     <string name="project_description">El sector turístico de Nayarit es una de las áreas estratégicas del estado y al igual que en otras partes del mundo, puede y debe beneficiarse del desarrollo de aplicaciones basadas en TIC para mantener y mejorar su competitividad a nivel nacional e internacional. Dentro de las actividades del laboratorio “Innovatic-lab” de CICESE-UT3 se encuentra el desarrollo de aplicaciones tecnológicas para los dos sectores prioritarios del estado: la agroindustria y el turismo. Dentro de las aplicaciones para el sector turístico, está el desarrollo de una aplicación móvil que implemente funcionalidades de realidad aumentada para mejorar la experiencia de los visitantes al primer cuadro del centro histórico de Tepic.</string>
 
     <string name="title_encuesta">Encuesta</string>
-    <string name="q1">¿Que le parecio la calidad de los sitios que visitó?</string>
-    <string name="q2">¿Que le parecio la limpieza de los lugares que visitó?</string>
-    <string name="q3">¿Que le parecio la atención del estado?</string>
-    <string name="q4">¿Que le parecio la hospitalidad del estado?</string>
+    <string name="q1">¿Como calificarías la limpieza del centro histórico de Tepic?</string>
+    <string name="q2">¿Como evaluarías la atención del personal en los puntos de interés?</string>
+    <string name="q3">¿Como calificacías la calidad de los servicios que recibiste?</string>
+    <string name="q4">¿Como evaluarias en general tu visita o estancia en la ciudad?</string>
     <string name="title_opinion">Opinion</string>
     <string name="opinion">Puedes dejarnos tu opinio, comentario o sugerencia:</string>
     <string name="title_bueno">Bueno</string>
