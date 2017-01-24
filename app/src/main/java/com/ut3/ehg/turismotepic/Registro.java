@@ -67,6 +67,9 @@ public class Registro extends Activity {
         origen = (TextView) findViewById(R.id.tvTexto_spOrigen);
 
 
+
+
+
         /*motivo.setTypeface(maven);
         acompañantes.setTypeface(maven);
         origen.setTypeface(maven);*/
@@ -131,10 +134,17 @@ public class Registro extends Activity {
                     final String Edad = edad.getText().toString();
                     final String Motivo = spinnerMotivo.getSelectedItem().toString();
                     final String Acompañantes = spinnerCompañeros.getSelectedItem().toString();
+
+                    if (Motivo.equals("negocio") && Acompañantes.equals("solo")) {
+                        System.out.println("entro");
+                    }
+                    final String Perfil = "1";
+
+
                     final String Origen = spinnerOrigen.getSelectedItem().toString();
                     rcUsuarios = new rc_usuarios(getApplicationContext());
                     rcUsuarios.open();
-                    rcUsuarios.insertarUsuarios(Usuario,Pass,Sexo,Motivo,Acompañantes,Origen,Edad);
+                    rcUsuarios.insertarUsuarios(Usuario,Pass,Sexo,Motivo,Acompañantes,Origen,Edad,Perfil);
                     rcUsuarios.close();
                     Toast.makeText(getApplicationContext(), "Registro Realizado", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(v.getContext(), Login.class);

@@ -21,9 +21,11 @@ public class db_usuarios extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_OTRO_ORIGEN = "otro_origen";
     public static final String COLUMN_NAME_MOTIVO = "motivo";
     public static final String COLUMN_NAME_ACCOMPANYING = "accompanying";
+    public static final String COLUMN_NAME_PERFIL = "perfil";
+
 
     //--------------------------------Insert Table Query
-    public static final String SQL_INSERT_ENTRIES = "INSERT INTO `usuarios` (`id`, `usuario`, `pass`, `edad`, `sexo`, `origen`, `motivo`, `accompanying`) VALUES (1, 'edwin','123','24','Hombre','Nayarit','Placer','Familia')";
+    public static final String SQL_INSERT_ENTRIES = "INSERT INTO `usuarios` (`id`, `usuario`, `pass`, `edad`, `sexo`, `origen`, `motivo`, `accompanying`, `perfil`) VALUES (1, 'edwin','123','24','Hombre','Nayarit','Placer','Familia', '1')";
     //--------------------------------Delete Table Query
     public static final String SQL_DELETE_ENTRIES = " DROP TABLE IF EXIST " + TABLE_NAME;
     //--------------------------------Create Table Query
@@ -44,6 +46,8 @@ public class db_usuarios extends SQLiteOpenHelper {
             + COLUMN_NAME_MOTIVO
             + " text, "
             + COLUMN_NAME_ACCOMPANYING
+            + " text )"
+            + COLUMN_NAME_PERFIL
             + " text )";
 
 
