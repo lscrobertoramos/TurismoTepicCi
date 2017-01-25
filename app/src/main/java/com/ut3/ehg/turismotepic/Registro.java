@@ -127,6 +127,9 @@ public class Registro extends Activity {
         btnGuardar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
+               System.out.println("Estoy en el boton");
+
                 if(edad.getText().length() !=0 ||usuario.getText().length() !=0 ||pass.getText().length() !=0) {
                     final String Sexo = datoSexo;
                     final String Usuario = usuario.getText().toString();
@@ -134,12 +137,50 @@ public class Registro extends Activity {
                     final String Edad = edad.getText().toString();
                     final String Motivo = spinnerMotivo.getSelectedItem().toString();
                     final String Acompañantes = spinnerCompañeros.getSelectedItem().toString();
+                    String Perfil = "";
 
-                    if (Motivo.equals("negocio") && Acompañantes.equals("solo")) {
-                        System.out.println("entro");
+
+                    if (Motivo.equals("Negocio") && Acompañantes.equals("Solo")) {
+                       Perfil = "1";
                     }
-                    final String Perfil = "1";
+                    else if (Motivo.equals("Negocio") && Acompañantes.equals("Pareja")){
+                        Perfil = "2";
+                    }
+                    else if (Motivo.equals("Negocio") && Acompañantes.equals("Familia")){
+                        Perfil = "3";
+                    }
+                    else if (Motivo.equals("Negocio") && Acompañantes.equals("Compañero de trabajo")){
+                        Perfil = "4";
+                    }
+                    else if (Motivo.equals("Placer") && Acompañantes.equals("Solo")){
+                        Perfil = "5";
+                    }
+                    else if (Motivo.equals("Placer") && Acompañantes.equals("Pareja")){
+                        Perfil = "6";
+                    }
+                    else if (Motivo.equals("Placer") && Acompañantes.equals("Familia")){
+                        Perfil = "7";
+                    }
+                    else if (Motivo.equals("Placer") && Acompañantes.equals("Compañero de trabajo")){
+                        Perfil = "8";
+                    }
+                    else if (Motivo.equals("Compras") && Acompañantes.equals("Solo")){
+                        Perfil = "9";
+                    }
+                    else if (Motivo.equals("Compras") && Acompañantes.equals("Pareja")){
+                        Perfil = "10";
+                    }
+                    else if (Motivo.equals("Compras") && Acompañantes.equals("Familia")){
+                        Perfil = "11";
+                    }
+                    else if (Motivo.equals("Compras") && Acompañantes.equals("Compañero de trabajo")){
+                        Perfil = "12";
+                    }
 
+                    System.out.println("El motivo es " +Motivo);
+                    System.out.println("El acompanante es " + Acompañantes);
+
+                    System.out.println("El perfil final es " +Perfil);
 
                     final String Origen = spinnerOrigen.getSelectedItem().toString();
                     rcUsuarios = new rc_usuarios(getApplicationContext());

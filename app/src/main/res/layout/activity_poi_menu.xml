@@ -255,7 +255,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_width="53dp"
                 android:layout_height="53dp"
-                android:background="@drawable/mall"
+                android:background="@drawable/tiendas"
                 />
             <TextView
                 android:layout_width="match_parent"

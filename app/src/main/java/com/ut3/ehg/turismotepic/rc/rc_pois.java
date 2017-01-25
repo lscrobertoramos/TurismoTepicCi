@@ -54,7 +54,7 @@ public class rc_pois {
         return c;
     }
 
-    public ContentValues generarContentValues(String Usuario, String Pass, String Sexo, String Motivo, String Origen, String Acompañantes, String Edad){
+    public ContentValues generarContentValues(String Usuario, String Pass, String Sexo, String Motivo, String Origen, String Acompañantes, String Edad, String Perfil){
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_NAME_USUARIO,Usuario);
         valores.put(COLUMN_NAME_PASS,Pass);
@@ -63,6 +63,8 @@ public class rc_pois {
         valores.put(COLUMN_NAME_ORIGEN,Origen);
         valores.put(COLUMN_NAME_MOTIVO,Motivo);
         valores.put(COLUMN_NAME_ACCOMPANYING,Acompañantes);
+        valores.put(COLUMN_NAME_ACCOMPANYING,Perfil);
+
         return valores;
     }
 }

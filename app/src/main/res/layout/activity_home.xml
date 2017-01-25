@@ -51,22 +51,25 @@
                 >
 
                 <ImageButton
-                    android:id="@+id/museo"
+
+                    android:id="@+id/img1"
                     android:layout_width="53dp"
                     android:layout_height="53dp"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/museos"
+                    android:clickable="true"
                     />
                 <TextView
+                    android:id="@+id/text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:textColor="#000"
-                    android:layout_below="@id/museo"
-                    android:text="@string/tv_museos"
+                    android:layout_below="@id/img1"
+
                     />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="120dp"
                 android:layout_height="75dp"
@@ -74,24 +77,24 @@
                 >
 
                 <ImageButton
-                    android:id="@+id/monumentos"
+                    android:id="@+id/img2"
                     android:layout_centerHorizontal="true"
                     android:layout_width="53dp"
                     android:layout_height="53dp"
-                    android:background="@drawable/monumentos"
+
                     />
 
                 <TextView
+                    android:id="@+id/text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:textColor="#000"
-                    android:layout_below="@id/monumentos"
-                    android:text="@string/tv_monumentos"
+                    android:layout_below="@id/img2"
+
                     />
 
             </RelativeLayout>
-
 
 
         </LinearLayout>
@@ -109,38 +112,40 @@
                 android:layout_height="75dp">
                 >
                 <ImageButton
-                    android:id="@+id/hoteles"
+                    android:id="@+id/img3"
                     android:layout_width="53dp"
                     android:layout_height="53dp"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/hoteles"
+
                     />
                 <TextView
+                    android:id="@+id/text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:textColor="#000"
-                    android:layout_below="@id/hoteles"
-                    android:text="@string/tv_hoteles"
+                    android:layout_below="@id/img3"
+
                     />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="120dp"
                 android:layout_height="75dp">
                 <ImageButton
-                    android:id="@+id/bancos"
+                    android:id="@+id/img4"
                     android:layout_centerHorizontal="true"
                     android:layout_width="53dp"
                     android:layout_height="53dp"
-                    android:background="@drawable/bancos"
+
                     />
                 <TextView
+                    android:id="@+id/text4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:textColor="#000"
-                    android:layout_below="@id/bancos"
-                    android:text="@string/tv_bancos"
+                    android:layout_below="@id/img4"
+
                     />
             </RelativeLayout>
         </LinearLayout>

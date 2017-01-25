@@ -25,7 +25,7 @@ public class db_usuarios extends SQLiteOpenHelper {
 
 
     //--------------------------------Insert Table Query
-    public static final String SQL_INSERT_ENTRIES = "INSERT INTO `usuarios` (`id`, `usuario`, `pass`, `edad`, `sexo`, `origen`, `motivo`, `accompanying`, `perfil`) VALUES (1, 'edwin','123','24','Hombre','Nayarit','Placer','Familia', '1')";
+    public static final String SQL_INSERT_ENTRIES = "INSERT INTO `usuarios` (`id`, `usuario`, `pass`, `edad`, `sexo`, `origen`, `motivo`, `accompanying`, `perfil`) VALUES (1, 'edwin','123','24','Hombre','Nayarit','Placer','Familia','1')";
     //--------------------------------Delete Table Query
     public static final String SQL_DELETE_ENTRIES = " DROP TABLE IF EXIST " + TABLE_NAME;
     //--------------------------------Create Table Query
@@ -46,7 +46,7 @@ public class db_usuarios extends SQLiteOpenHelper {
             + COLUMN_NAME_MOTIVO
             + " text, "
             + COLUMN_NAME_ACCOMPANYING
-            + " text )"
+            + " text, "
             + COLUMN_NAME_PERFIL
             + " text )";
 

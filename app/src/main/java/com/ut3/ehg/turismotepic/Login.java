@@ -78,7 +78,12 @@ public class Login extends Activity {
                 if(id == null){
                     Toast.makeText(Login.this, "El usuario o password es incorrecto", Toast.LENGTH_SHORT).show();
                 }else{
+
+                    System.out.println("El id del user es " +id);
+
                     userEditor.putInt("idUser",parseInt(id));
+                    userEditor.putString("user",etUsuarioL.getText().toString() );
+                    userEditor.putString("pass", etPassL.getText().toString());
                     userEditor.commit();
 
                     if (cbR.isChecked()) {

@@ -44,6 +44,20 @@ public class rc_usuarios {
         return resultado;
     }
 
+    public String idPerfil(String usuario){
+        String resultado = null;
+        String[] args = new String[] {usuario};
+        Cursor c = database.rawQuery(" SELECT Perfil FROM usuarios WHERE usuario=?", args);
+        if (c.moveToFirst()) {
+            do {
+                resultado= c.getString(0);
+            } while(c.moveToNext());
+        }
+        return resultado;
+    }
+
+
+
     public ContentValues generarContentValues(String Usuario, String Pass, String Sexo, String Motivo, String Origen, String Acompañantes, String Edad, String Perfil){
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_NAME_USUARIO,Usuario);
