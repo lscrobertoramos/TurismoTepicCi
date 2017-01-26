@@ -137,11 +137,12 @@ public class Registro extends Activity {
                     final String Edad = edad.getText().toString();
                     final String Motivo = spinnerMotivo.getSelectedItem().toString();
                     final String Acompañantes = spinnerCompañeros.getSelectedItem().toString();
+                    int EdadP = Integer.parseInt(Edad);
                     String Perfil = "";
+                    System.out.println("la edad es de "+EdadP);
 
-
-                    if (Motivo.equals("Negocio") && Acompañantes.equals("Solo")) {
-                       Perfil = "1";
+                    if (EdadP >= 65) {
+                       Perfil = "10";
                     }
                     else if (Motivo.equals("Negocio") && Acompañantes.equals("Pareja")){
                         Perfil = "2";
@@ -164,23 +165,18 @@ public class Registro extends Activity {
                     else if (Motivo.equals("Placer") && Acompañantes.equals("Compañero de trabajo")){
                         Perfil = "8";
                     }
-                    else if (Motivo.equals("Compras") && Acompañantes.equals("Solo")){
+                    else if (Motivo.equals("Compras") && Acompañantes.equals("Solo") || Motivo.equals("Compras") && Acompañantes.equals("Pareja") || Motivo.equals("Compras") && Acompañantes.equals("Familia") || Motivo.equals("Compras") && Acompañantes.equals("Compañero de trabajo")){
                         Perfil = "9";
                     }
-                    else if (Motivo.equals("Compras") && Acompañantes.equals("Pareja")){
-                        Perfil = "10";
-                    }
-                    else if (Motivo.equals("Compras") && Acompañantes.equals("Familia")){
-                        Perfil = "11";
-                    }
-                    else if (Motivo.equals("Compras") && Acompañantes.equals("Compañero de trabajo")){
-                        Perfil = "12";
+                    else if (Motivo.equals("Negocio") && Acompañantes.equals("Solo")){
+
+                        Perfil = "1";
                     }
 
-                    System.out.println("El motivo es " +Motivo);
-                    System.out.println("El acompanante es " + Acompañantes);
+                    //System.out.println("El motivo es " +Motivo);
+                    //System.out.println("El acompanante es " + Acompañantes);
 
-                    System.out.println("El perfil final es " +Perfil);
+                    //System.out.println("El perfil final es " +Perfil);
 
                     final String Origen = spinnerOrigen.getSelectedItem().toString();
                     rcUsuarios = new rc_usuarios(getApplicationContext());

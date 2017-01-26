@@ -28,7 +28,7 @@
         android:layout_height="55dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/tvCategoria"
-        android:src="@drawable/museos"/>
+        />
     <ImageView
         android:id="@+id/flecha"
         android:layout_width="match_parent"

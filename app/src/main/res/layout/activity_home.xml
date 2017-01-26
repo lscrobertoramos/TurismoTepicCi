@@ -35,7 +35,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="350dp">
+        android:layout_marginTop="320dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                 android:layout_height="75dp">
                 >
 
-                <ImageButton
+                <ImageView
 
                     android:id="@+id/img1"
                     android:layout_width="53dp"
@@ -72,11 +72,11 @@
 
             <RelativeLayout
                 android:layout_width="120dp"
-                android:layout_height="75dp"
+                android:layout_height="87dp"
 
                 >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/img2"
                     android:layout_centerHorizontal="true"
                     android:layout_width="53dp"
@@ -111,7 +111,7 @@
                 android:layout_width="120dp"
                 android:layout_height="75dp">
                 >
-                <ImageButton
+                <ImageView
                     android:id="@+id/img3"
                     android:layout_width="53dp"
                     android:layout_height="53dp"
@@ -130,8 +130,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="120dp"
-                android:layout_height="75dp">
-                <ImageButton
+                android:layout_height="94dp">
+                <ImageView
                     android:id="@+id/img4"
                     android:layout_centerHorizontal="true"
                     android:layout_width="53dp"
@@ -142,10 +142,11 @@
                     android:id="@+id/text4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:textColor="#000"
                     android:layout_below="@id/img4"
-
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                   
                     />
             </RelativeLayout>
         </LinearLayout>

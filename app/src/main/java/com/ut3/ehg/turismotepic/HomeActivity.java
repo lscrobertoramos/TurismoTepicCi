@@ -48,17 +48,17 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
         int idusuario = cat.getInt("idUser",0);
         String user = cat.getString("user", "");
         String pass = cat.getString("pass", "");
-
+       /*
         System.out.println("El id almacenado es " +idusuario);
         System.out.println("El usuario almacenado es " +user);
         System.out.println("El pass almacenado es " +pass);
-
+       */
         rcUsuarios = new rc_usuarios(root.getContext());
         rcUsuarios.open();
         String idPerfil = rcUsuarios.idPerfil(user);
         rcUsuarios.close();
 
-        System.out.println("El perfil del usuario es el " +idPerfil);
+        //System.out.println("El perfil del usuario es el " +idPerfil);
 
         ImageView imageone = (ImageView)root.findViewById(R.id.img1);
         ImageView imagetwo = (ImageView)root.findViewById(R.id.img2);
@@ -78,92 +78,79 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             imagetwo.setImageResource(R.drawable.tiendas);
             texttwo.setText("Tiendas");
              idcat1 = 7;
-            imagethree.setImageResource(R.drawable.bancos1);
+            imagethree.setImageResource(R.drawable.bancos);
             textthree.setText("Bancos");
              idcat2 = 5;
-            imagefour.setImageResource(R.drawable.mall1);
+            imagefour.setImageResource(R.drawable.mall);
             textfour.setText("Plazas Comerciales");
              idcat3 = 8;
         }else if(idPerfil.equals("2")){
             imageone.setImageResource(R.drawable.restaurantes);
             textone.setText("Restaurantes");
             idcat = 2;
-            imagetwo.setImageResource(R.drawable.mall1);
+            imagetwo.setImageResource(R.drawable.mall);
             texttwo.setText("Plazas comerciales");
             idcat1 = 8;
-            imagethree.setImageResource(R.drawable.museos1);
+            imagethree.setImageResource(R.drawable.museos);
             textthree.setText("Museos");
             idcat2 = 4;
-            imagefour.setImageResource(R.drawable.parques1);
+            imagefour.setImageResource(R.drawable.parques);
             textfour.setText("Parques");
             idcat3 = 9;
         }else if(idPerfil.equals("3")){
-            imageone.setImageResource(R.drawable.parques1);
+            imageone.setImageResource(R.drawable.parques);
             textone.setText("Parques");
             idcat = 9;
-            imagetwo.setImageResource(R.drawable.museos1);
+            imagetwo.setImageResource(R.drawable.museos);
             texttwo.setText("Museos");
             idcat1 = 4;
-            imagethree.setImageResource(R.drawable.monumentos1);
+            imagethree.setImageResource(R.drawable.monumentos);
             textthree.setText("Monumentos");
             idcat2 = 3;
-            imagefour.setImageResource(R.drawable.mall1);
+            imagefour.setImageResource(R.drawable.mall);
             textfour.setText("Plazas Comerciales");
             idcat3 = 8;
         }else if(idPerfil.equals("4")){
             imageone.setImageResource(R.drawable.restaurantes);
             textone.setText("Restaurantes");
             idcat = 2;
-            imagetwo.setImageResource(R.drawable.museos1);
+            imagetwo.setImageResource(R.drawable.museos);
             texttwo.setText("Museos");
             idcat1 = 4;
-            imagethree.setImageResource(R.drawable.bancos1);
+            imagethree.setImageResource(R.drawable.bancos);
             textthree.setText("Bancos");
             idcat2 = 5;
-            imagefour.setImageResource(R.drawable.mall1);
+            imagefour.setImageResource(R.drawable.mall);
             textfour.setText("Plazas Comerciales");
             idcat3 = 8;
         }else if(idPerfil.equals("5")){
             imageone.setImageResource(R.drawable.restaurantes);
             textone.setText("Restaurantes");
             idcat = 2;
-            imagetwo.setImageResource(R.drawable.bancos1);
+            imagetwo.setImageResource(R.drawable.bancos);
             texttwo.setText("Bancos");
             idcat1 = 5;
-            imagethree.setImageResource(R.drawable.hoteles1);
+            imagethree.setImageResource(R.drawable.hoteles);
             textthree.setText("Hoteles");
             idcat2 = 1;
-            imagefour.setImageResource(R.drawable.monumentos1);
+            imagefour.setImageResource(R.drawable.monumentos);
             textfour.setText("Monumentos");
             idcat3 = 3;
-        }else if(idPerfil.equals("6")){
-            imageone.setImageResource(R.drawable.museos1);
+        }else if(idPerfil.equals("6") || idPerfil.equals("7")){
+            imageone.setImageResource(R.drawable.museos);
             textone.setText("Museos");
             idcat = 4;
             imagetwo.setImageResource(R.drawable.tiendas);
             texttwo.setText("Tiendas");
             idcat1 = 7;
-            imagethree.setImageResource(R.drawable.bancos1);
+            imagethree.setImageResource(R.drawable.bancos);
             textthree.setText("Bancos");
             idcat2 = 5;
-            imagefour.setImageResource(R.drawable.mall1);
-            textfour.setText("Plazas Comerciales");
-            idcat3 = 8;
-        }else if(idPerfil.equals("7")){
-            imageone.setImageResource(R.drawable.museos1);
-            textone.setText("Museos");
-            idcat = 4;
-            imagetwo.setImageResource(R.drawable.monumentos);
-            texttwo.setText("Monumentos");
-            idcat1 = 3;
-            imagethree.setImageResource(R.drawable.parques1);
-            textthree.setText("Parques");
-            idcat2 = 9;
-            imagefour.setImageResource(R.drawable.mall1);
+            imagefour.setImageResource(R.drawable.mall);
             textfour.setText("Plazas Comerciales");
             idcat3 = 8;
         }else if(idPerfil.equals("8")){
-            imageone.setImageResource(R.drawable.museos1);
+            imageone.setImageResource(R.drawable.museos);
             textone.setText("Museos");
             idcat = 4;
             imagetwo.setImageResource(R.drawable.tiendas);
@@ -172,7 +159,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             imagetwo.setImageResource(R.drawable.monumentos);
             texttwo.setText("Monumentos");
             idcat1 = 3;
-            imagefour.setImageResource(R.drawable.mall1);
+            imagefour.setImageResource(R.drawable.mall);
             textfour.setText("Plazas Comerciales");
             idcat3 = 8;
         }else if(idPerfil.equals("9")){
@@ -182,51 +169,26 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             imagetwo.setImageResource(R.drawable.tiendas);
             texttwo.setText("Tiendas");
             idcat1 = 7;
-            imagethree.setImageResource(R.drawable.parques1);
+            imagethree.setImageResource(R.drawable.parques);
             textthree.setText("Parques");
             idcat2 = 9;
-            imagefour.setImageResource(R.drawable.mall1);
+            imagefour.setImageResource(R.drawable.mall);
             textfour.setText("Plazas Comerciales");
             idcat3 = 8;
-        }else if(idPerfil.equals("10")){
-            imageone.setImageResource(R.drawable.restaurantes);
-            textone.setText("Restaurantes");
-            idcat = 2;
-            imagetwo.setImageResource(R.drawable.tiendas);
-            texttwo.setText("Tiendas");
-            idcat1 = 7;
-            imagethree.setImageResource(R.drawable.parques1);
-            textthree.setText("Parques");
-            idcat2 = 9;
-            imagefour.setImageResource(R.drawable.mall1);
-            textfour.setText("Plazas Comerciales");
-            idcat3 = 8;
-        }else if(idPerfil.equals("11")){
-            imageone.setImageResource(R.drawable.restaurantes);
-            textone.setText("Restaurantes");
-            idcat = 2;
-            imagetwo.setImageResource(R.drawable.tiendas);
-            texttwo.setText("Tiendas");
-            idcat1 = 7;
-            imagethree.setImageResource(R.drawable.parques1);
-            textthree.setText("Parques");
-            idcat2 = 9;
-            imagefour.setImageResource(R.drawable.mall1);
-            textfour.setText("Plazas Comerciales");
-            idcat3 = 8;
-        }else if(idPerfil.equals("12")){
-            imageone.setImageResource(R.drawable.restaurantes);
-            textone.setText("Restaurantes");
-            idcat = 2;
-            imagetwo.setImageResource(R.drawable.tiendas);
-            texttwo.setText("Tiendas");
-            idcat1 = 7;
-            imagethree.setImageResource(R.drawable.parques1);
-            textthree.setText("Parques");
-            idcat2 = 9;
-            imagefour.setImageResource(R.drawable.mall1);
-            textfour.setText("Plazas Comerciales");
-            idcat3 = 8;
+        }
+        else if(idPerfil.equals("10")){
+            imageone.setImageResource(R.drawable.farmacias);
+            textone.setText("Farmacias");
+            idcat = 6;
+            imagetwo.setImageResource(R.drawable.bancos);
+            texttwo.setText("Bancos");
+            idcat1 = 5;
+            imagethree.setImageResource(R.drawable.monumentos);
+            textthree.setText("Monumentos");
+            idcat2 = 3;
+            imagefour.setImageResource(R.drawable.museos);
+            textfour.setText("Museos");
+            idcat3 = 4;
         }
         // click en la imagen uno
         imageone.setOnClickListener(new View.OnClickListener() {
@@ -307,15 +269,8 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             }
         });
 
-
-
-
         return root;
     }
-
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -324,8 +279,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             drawer.openDrawer(GravityCompat.START);
         else
             drawer.closeDrawer(GravityCompat.START);
-
     }
-
-
 }
+
+
