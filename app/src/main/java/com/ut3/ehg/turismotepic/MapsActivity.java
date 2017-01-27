@@ -74,10 +74,10 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ProgressDialog progressDialog;
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 12 segundos y se actualiza ***1 minute
+    private static final long MIN_TIME_BW_UPDATES = 500 *60 *1; // 12 segundos y se actualiza ***1 minute
     private LocationManager mLocationManager;
 
 
@@ -103,19 +103,17 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
         root = (ViewGroup) inflater.inflate(R.layout.fragment_maps, null);
         cntx = container.getContext();
 
-        //System.out.println(onLocationChanged(location);
+        progressDialog = ProgressDialog.show(getContext(), "Espera",
+                "Buscando las indicaciones", true);
+       // getLocation();
 
-        //getLocation();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-       // sendRequest();
+
 
         return root;
     }
-
-
-
 
 
     @Override
@@ -187,12 +185,12 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     }
 
     private void sendRequest() {
-        ubic = this.getActivity().getSharedPreferences("ubic",MODE_PRIVATE);
-        String loc = ubic.getString("loc","");
-        String origin = latitud+","+longitud;
+        ubic = this.getActivity().getSharedPreferences("ubic", MODE_PRIVATE);
+        String loc = ubic.getString("loc", "");
+        String origin = latitud + "," + longitud;
         String destination = loc;
         cat = ubic.getInt("cat", 0);
-        destino = ubic.getString("destino","");
+        destino = ubic.getString("destino", "");
 
         try {
             new DirectionFinder(this, origin, destination).execute();
@@ -204,11 +202,6 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
 
     @Override
     public void onDirectionFinderStart() {
-       progressDialog = ProgressDialog.show(getContext(), "Espera",
-                "Buscando las indicaciones", true);
-
-
-
 
 
         if (originMarkers != null) {
@@ -311,14 +304,8 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     }
 
 
-
-
-
-
-
-
     public void getLocation() {
-       // lm = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+        // lm = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
         //Adecuaciones
         criteria = new Criteria();
         bestProvider = String.valueOf(mLocationManager.getBestProvider(criteria, false)).toString();
@@ -334,7 +321,7 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
             }
 
         } else {
-             location = mLocationManager.getLastKnownLocation(bestProvider);
+            location = mLocationManager.getLastKnownLocation(bestProvider);
             //location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         }
 
@@ -346,13 +333,11 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
             //longitude = location.getLongitude();
             latitud = String.valueOf(location.getLatitude());
             longitud = String.valueOf(location.getLongitude());
-           // sendRequest();
-
-
-        }
-        else{
+            sendRequest();
+        } else {
             //This is what you need:
-            //mLocationManager.requestLocationUpdates(bestProvider, 1000, 0, this);
+            mLocationManager.requestLocationUpdates(bestProvider, MIN_TIME_BW_UPDATES,
+                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
         }
 
@@ -369,13 +354,13 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     public void onLocationChanged(Location location) {
 
 
-
-
-        Log.i(TAG,"entro"+ String.valueOf(location.getLatitude()));
+        Log.i(TAG, "entro" + String.valueOf(location.getLatitude()));
         Log.i(TAG, "entro" + String.valueOf(location.getLongitude()));
 
         latitud = String.valueOf(location.getLatitude());
         longitud = String.valueOf(location.getLongitude());
+
+
 
         sendRequest();
 
@@ -392,17 +377,35 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle bundle) {
-       // Log.i(TAG, "Provider " + provider + " has now status: " + status);
+        // Log.i(TAG, "Provider " + provider + " has now status: " + status);
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-      //  Log.i(TAG, "Provider " + provider + " is enabled");
+        //  Log.i(TAG, "Provider " + provider + " is enabled");
+        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES,
+                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+        } else {
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES,
+                    MIN_DISTANCE_CHANGE_FOR_UPDATES,this);
+        }
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-      //  Log.i(TAG, "Provider " + provider + " is disabled");
+      Toast.makeText(getActivity(), "GPS DESACTIVADO", Toast.LENGTH_LONG).show();
     }
 
 
