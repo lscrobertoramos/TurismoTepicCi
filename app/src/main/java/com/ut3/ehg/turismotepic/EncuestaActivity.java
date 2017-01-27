@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class EncuestaActivity extends Fragment {
     rc_encuesta rcEncuesta;
     SharedPreferences user,loginPreferences;
     float r1,r2,r3,r4,r5;
+    private EditText opinion;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root;
@@ -42,22 +44,27 @@ public class EncuestaActivity extends Fragment {
         rb2 = (RatingBar) root.findViewById(R.id.ratingb2);
         rb3 = (RatingBar) root.findViewById(R.id.ratingb3);
         rb4 = (RatingBar) root.findViewById(R.id.ratingb4);
+        opinion = (EditText) root.findViewById(R.id.opinionText);
         //rb5 = (RatingBar) root.findViewById(R.id.ratingb5);
         btnEnviar = (ImageButton) root.findViewById(R.id.btnEnviar);
+       // String Opinion = opinion.getText().toString();
         user=this.getActivity().getSharedPreferences("user", MODE_PRIVATE);
         loginPreferences = this.getActivity().getSharedPreferences("loginPrefs",MODE_PRIVATE);
         btnEnviar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
+
+                String Opinion = opinion.getText().toString();
                 int idUser=user.getInt("idUser",0);
                 r1=rb1.getRating();
                 r2=rb2.getRating();
                 r3=rb3.getRating();
                 r4=rb4.getRating();
-                r5=rb5.getRating();
+                //r5=rb5.getRating();
                 rcEncuesta= new rc_encuesta(getActivity().getApplicationContext());
                 rcEncuesta.open();
-                rcEncuesta.enviarEncuesta(idUser,r1,r2,r3,r4,r5);
+                rcEncuesta.enviarEncuesta(idUser,r1,r2,r3,r4,Opinion);
                 Toast.makeText(getActivity(), "Encuesta enviada", Toast.LENGTH_SHORT).show();
                 String fragmentTemp="com.ut3.ehg.turismotepic.HomeActivity";
                 DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);

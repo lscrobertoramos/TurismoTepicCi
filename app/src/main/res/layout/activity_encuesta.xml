@@ -292,7 +292,7 @@
                     android:inputType="textPersonName"
                     android:text=""
                     android:ems="10"
-                    android:id="@+id/editText3"
+                    android:id="@+id/opinionText"
                     android:layout_weight="1" />
 
 

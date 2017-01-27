@@ -31,13 +31,13 @@ public class rc_encuesta {
     //}
 
 
-    public void enviarEncuesta (int idUser,float a,float b,float c,float d,float e){
+    public void enviarEncuesta (int idUser,float a,float b,float c,float d,String e){
         SQLiteDatabase db;
 
         database.insert(TABLE_NAME, null,generarContentValues(idUser,a,b,c,d,e));
     }
 
-    public ContentValues generarContentValues(int idUser,float a,float b,float c,float d,float e){
+    public ContentValues generarContentValues(int idUser,float a,float b,float c,float d,String e){
         ContentValues valores = new ContentValues();
         valores.put(COLUMN_NAME_ID_USER,idUser);
         valores.put(COLUMN_NAME_Q1,a);
