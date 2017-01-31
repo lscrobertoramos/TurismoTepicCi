@@ -2,10 +2,12 @@ package com.ut3.ehg.turismotepic;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,6 +20,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.ut3.ehg.turismotepic.db.db_acompanying;
 import com.ut3.ehg.turismotepic.db.db_motivo;
 import com.ut3.ehg.turismotepic.db.db_origen;
@@ -26,6 +34,8 @@ import com.ut3.ehg.turismotepic.rc.rc_usuarios;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Registro extends Activity {
     private String datoSexo;
@@ -34,6 +44,11 @@ public class Registro extends Activity {
     private  RadioButton rbHombre, rbMujer;
     private RadioGroup rdgGrupo;
     private rc_usuarios rcUsuarios;
+    private RequestQueue rqt;
+    private Context ctx;
+    private String url = "http://158.97.121.65/WebServiceT2/proceso.php";
+
+    private StringRequest strq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +58,9 @@ public class Registro extends Activity {
         db_origen dataOrigen = new db_origen(this);
         final db_acompanying dataAcompañante = new db_acompanying(this);
         final db_usuarios dataUsuarios = new db_usuarios(this);
+        ctx = Registro.this;
+
+        rqt = Volley.newRequestQueue(ctx);
 
 
         Typeface roboto = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
@@ -124,9 +142,12 @@ public class Registro extends Activity {
                 }
             }
         });
+
+
         btnGuardar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
 
                System.out.println("Estoy en el boton");
 
@@ -173,6 +194,8 @@ public class Registro extends Activity {
                         Perfil = "1";
                     }
 
+                    seleccionar(Sexo,Usuario,Pass,Edad,Motivo,Acompañantes,Perfil);
+
                     //System.out.println("El motivo es " +Motivo);
                     //System.out.println("El acompanante es " + Acompañantes);
 
@@ -185,15 +208,14 @@ public class Registro extends Activity {
                     rcUsuarios.close();
                     System.out.println("El origen es "+ Origen);
                     Toast.makeText(getApplicationContext(), "Registro Realizado", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(v.getContext(), Login.class);
+                    /*Intent intent = new Intent(v.getContext(), Login.class);
                     startActivity(intent);
-                    finish();
+                    finish();*/
                 } else{
                         Toast.makeText(getApplicationContext(),"Uno o más campos estan vacios", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
 
         /*btnCancelar.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -211,6 +233,53 @@ public class Registro extends Activity {
             }
         });
     }
+
+    private void seleccionar(final String Sexo, final String Usuario, final String Pass, final String Edad, final String Motivo,final String  Acompañante, final String Perfil ) {
+
+        strq = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("rta_servidor", response);
+                        Toast.makeText(ctx, response, Toast.LENGTH_SHORT).show();
+
+                        if(response.equals("El usuario ya existe")){
+                            usuario.setText("");
+                        }
+                        else{
+                            Intent intent = new Intent(Registro.this, Login.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error_servidor", error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams()  {
+                Map<String, String> parametros = new HashMap<>();
+
+                parametros.put("usuario", Usuario);
+                parametros.put("sexo", Sexo);
+                parametros.put("pass", Pass);
+                parametros.put("edad", Edad);
+                parametros.put("motivo", Motivo);
+                parametros.put("acompañante", Acompañante);
+                parametros.put("perfil", Perfil);
+                parametros.put("operacion", "r");
+
+                return parametros;
+            }
+        };
+
+        rqt.add(strq);
+
+    }
+
     ////////////////////Funciola antes de agregar esta parte
     public void numberPickerDialog(){
         NumberPicker npEdad = new NumberPicker(this);
