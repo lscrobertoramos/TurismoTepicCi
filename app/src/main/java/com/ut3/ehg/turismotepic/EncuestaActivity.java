@@ -61,6 +61,8 @@ public class EncuestaActivity extends Fragment {
                 r2=rb2.getRating();
                 r3=rb3.getRating();
                 r4=rb4.getRating();
+
+                System.out.println("El varlos numerico es de "+r4);
                 //r5=rb5.getRating();
                 rcEncuesta= new rc_encuesta(getActivity().getApplicationContext());
                 rcEncuesta.open();

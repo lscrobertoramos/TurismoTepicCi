@@ -74,10 +74,10 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ProgressDialog progressDialog;
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 500 *60 *1; // 12 segundos y se actualiza ***1 minute
+    private static final long MIN_TIME_BW_UPDATES = 10000;// * 60 * 1; // 12 segundos y se actualiza ***1 minute
     private LocationManager mLocationManager;
 
 
@@ -383,24 +383,7 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     @Override
     public void onProviderEnabled(String provider) {
         //  Log.i(TAG, "Provider " + provider + " is enabled");
-        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES,
-                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-        } else {
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES,
-                    MIN_DISTANCE_CHANGE_FOR_UPDATES,this);
-        }
+
     }
 
     @Override

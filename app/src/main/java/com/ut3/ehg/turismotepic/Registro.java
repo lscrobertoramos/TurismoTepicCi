@@ -183,6 +183,7 @@ public class Registro extends Activity {
                     rcUsuarios.open();
                     rcUsuarios.insertarUsuarios(Usuario,Pass,Sexo,Motivo,Acompañantes,Origen,Edad,Perfil);
                     rcUsuarios.close();
+                    System.out.println("El origen es "+ Origen);
                     Toast.makeText(getApplicationContext(), "Registro Realizado", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(v.getContext(), Login.class);
                     startActivity(intent);
