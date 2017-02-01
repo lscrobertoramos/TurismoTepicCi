@@ -1,10 +1,12 @@
 package com.ut3.ehg.turismotepic;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,7 +14,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.ut3.ehg.turismotepic.rc.rc_usuarios;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
@@ -23,10 +34,20 @@ public class Login extends Activity {
     private SharedPreferences.Editor loginPrefsEditor,userEditor;
     private Boolean saveLogin;
 
+    private RequestQueue rqt;
+    private Context ctx;
+    private String url = "http://158.97.121.65/WebServiceT2/proceso.php";
+
+    private StringRequest strq;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        ctx = Login.this;
+
+        rqt = Volley.newRequestQueue(ctx);
 
         TextView tx = (TextView)findViewById(R.id.tvTitleLogin);
         Typeface roboto = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
@@ -64,12 +85,23 @@ public class Login extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
                 if (etUsuarioL.getText().length()==0){
                     etUsuarioL.setError("Correo Vacio");
+                }else{
+                    login(etUsuarioL.getText().toString(), etPassL.getText().toString());
                 }
                 if (etPassL.getText().length()==0){
                     etPassL.setError("Password vacio");
+                }else{
+                    login(etUsuarioL.getText().toString(), etPassL.getText().toString());
+
                 }
+
+
+
+
+/*
                 String id =null;
                 rcUsuarios = new rc_usuarios(getApplicationContext());
                 rcUsuarios.open();
@@ -98,7 +130,7 @@ public class Login extends Activity {
                     Intent intent = new Intent(v.getContext(), MainActivity.class);
                     startActivity(intent);
                     Login.this.finish();
-                }
+                }*/
             }
             
         });
@@ -113,4 +145,57 @@ public class Login extends Activity {
 
 
     }
+
+    private void login(final String usuario, final String pass) {
+        final CheckBox cbR = (CheckBox) findViewById(R.id.cbRemenberme);
+        strq = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("rta_servidor", response);
+                        Toast.makeText(ctx, response, Toast.LENGTH_SHORT).show();
+
+                        if (response.equals("Bienvenido")) {
+
+                            userEditor.putString("user",usuario);
+                            userEditor.putString("pass", pass);
+                            userEditor.commit();
+
+                            if (cbR.isChecked()) {
+                                loginPrefsEditor.putBoolean("saveLogin", true);
+                                loginPrefsEditor.putString("username", usuario);
+                                loginPrefsEditor.putString("password", pass);
+                                loginPrefsEditor.commit();
+                            } else {
+                                loginPrefsEditor.clear();
+                                loginPrefsEditor.commit();
+                            }
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            startActivity(intent);
+                            Login.this.finish();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error_servidor", error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams()  {
+                Map<String, String> parametros = new HashMap<>();
+
+                parametros.put("usuario", usuario);
+                parametros.put("pass", pass);
+                parametros.put("operacion", "l");
+
+                return parametros;
+            }
+        };
+
+        rqt.add(strq);
+
+    }
+
+
 }
