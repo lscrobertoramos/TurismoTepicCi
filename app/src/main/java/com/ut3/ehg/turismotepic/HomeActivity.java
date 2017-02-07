@@ -1,9 +1,7 @@
 package com.ut3.ehg.turismotepic;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,11 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,24 +22,20 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ut3.ehg.turismotepic.rc.rc_usuarios;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.R.attr.defaultValue;
 import static android.content.Context.MODE_PRIVATE;
 import static java.lang.Integer.parseInt;
 
 public class HomeActivity extends Fragment implements View.OnClickListener {
 
-    private rc_usuarios rcUsuarios;
+    //private rc_usuarios rcUsuarios;
     private int idcat, idcat1, idcat2, idcat3;
     ViewGroup root;
     Context cntx;
     ImageButton bmenu;
-    SharedPreferences poi;
-    SharedPreferences cat;
     SharedPreferences.Editor editarCat;
     private RequestQueue rqt;
     private Context ctx;
@@ -55,7 +47,6 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final AppBarLayout appBarLayout;
         root = (ViewGroup) inflater.inflate(R.layout.activity_home, null);
         cntx = container.getContext();
         bmenu = (ImageButton)root.findViewById(R.id.bmenu);
@@ -65,24 +56,10 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
         rqt = Volley.newRequestQueue(ctx);
 
         SharedPreferences cat=this.getActivity().getSharedPreferences("user",MODE_PRIVATE);
-        int idusuario = cat.getInt("idUser",0);
         String user = cat.getString("user", "");
         String pass = cat.getString("pass", "");
-       /*
-        System.out.println("El id almacenado es " +idusuario);
-        System.out.println("El usuario almacenado es " +user);
-        System.out.println("El pass almacenado es " +pass);
-
-        rcUsuarios = new rc_usuarios(root.getContext());
-        rcUsuarios.open();
-        String idPerfil = "1";//rcUsuarios.idPerfil(user);
-        rcUsuarios.close();
-        */
-        //System.out.println("El perfil del usuario es el " +idPerfil);
 
         perfil(user,pass);
-
-
 
         return root;
     }
@@ -97,6 +74,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
     }
 
     private void perfil(final String usuario, final String pass) {
+
 
         strq = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -121,15 +99,15 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                             imageone.setImageResource(R.drawable.restaurantes);
                             textone.setText("Restaurantes");
                             idcat = 2;
-                            imagetwo.setImageResource(R.drawable.tiendas);
-                            texttwo.setText("Tiendas");
-                            idcat1 = 7;
+                            imagetwo.setImageResource(R.drawable.museos);
+                            texttwo.setText("Museos");
+                            idcat1 = 4;
                             imagethree.setImageResource(R.drawable.bancos);
                             textthree.setText("Bancos");
                             idcat2 = 5;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
+                            imagefour.setImageResource(R.drawable.monumentos);
+                            textfour.setText("Monumentos");
+                            idcat3 = 3;
                         }else if(idPerfil.equals("2")){
                             imageone.setImageResource(R.drawable.restaurantes);
                             textone.setText("Restaurantes");
@@ -137,12 +115,12 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                             imagetwo.setImageResource(R.drawable.mall);
                             texttwo.setText("Plazas comerciales");
                             idcat1 = 8;
-                            imagethree.setImageResource(R.drawable.museos);
-                            textthree.setText("Museos");
-                            idcat2 = 4;
-                            imagefour.setImageResource(R.drawable.parques);
-                            textfour.setText("Parques");
-                            idcat3 = 9;
+                            imagethree.setImageResource(R.drawable.tiendas);
+                            textthree.setText("Tiendas");
+                            idcat2 = 7;
+                            imagefour.setImageResource(R.drawable.bancos);
+                            textfour.setText("Bancos");
+                            idcat3 = 5;
                         }else if(idPerfil.equals("3")){
                             imageone.setImageResource(R.drawable.parques);
                             textone.setText("Parques");
@@ -150,9 +128,9 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                             imagetwo.setImageResource(R.drawable.museos);
                             texttwo.setText("Museos");
                             idcat1 = 4;
-                            imagethree.setImageResource(R.drawable.monumentos);
-                            textthree.setText("Monumentos");
-                            idcat2 = 3;
+                            imagethree.setImageResource(R.drawable.restaurantes);
+                            textthree.setText("Restaurantes");
+                            idcat2 = 2;
                             imagefour.setImageResource(R.drawable.mall);
                             textfour.setText("Plazas Comerciales");
                             idcat3 = 8;
@@ -176,39 +154,81 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                             imagetwo.setImageResource(R.drawable.bancos);
                             texttwo.setText("Bancos");
                             idcat1 = 5;
-                            imagethree.setImageResource(R.drawable.hoteles);
-                            textthree.setText("Hoteles");
-                            idcat2 = 1;
-                            imagefour.setImageResource(R.drawable.monumentos);
-                            textfour.setText("Monumentos");
-                            idcat3 = 3;
-                        }else if(idPerfil.equals("6") || idPerfil.equals("7")){
-                            imageone.setImageResource(R.drawable.museos);
-                            textone.setText("Museos");
-                            idcat = 4;
-                            imagetwo.setImageResource(R.drawable.tiendas);
-                            texttwo.setText("Tiendas");
-                            idcat1 = 7;
-                            imagethree.setImageResource(R.drawable.bancos);
-                            textthree.setText("Bancos");
-                            idcat2 = 5;
+                            imagethree.setImageResource(R.drawable.museos);
+                            textthree.setText("Museos");
+                            idcat2 = 4;
                             imagefour.setImageResource(R.drawable.mall);
                             textfour.setText("Plazas Comerciales");
                             idcat3 = 8;
+                        }else if(idPerfil.equals("6")){
+                            imageone.setImageResource(R.drawable.museos);
+                            textone.setText("Museos");
+                            idcat = 4;
+                            imagetwo.setImageResource(R.drawable.monumentos);
+                            texttwo.setText("Monumentos");
+                            idcat1 = 6;
+                            imagethree.setImageResource(R.drawable.restaurantes);
+                            textthree.setText("Restaurantes");
+                            idcat2 = 2;
+                            imagefour.setImageResource(R.drawable.mall);
+                            textfour.setText("Plazas Comerciales");
+                            idcat3 = 8;
+                        }else if(idPerfil.equals("7")){
+                            imageone.setImageResource(R.drawable.museos);
+                            textone.setText("Museos");
+                            idcat = 4;
+                            imagetwo.setImageResource(R.drawable.bancos);
+                            texttwo.setText("Bancos");
+                            idcat1 = 5;
+                            imagethree.setImageResource(R.drawable.tiendas);
+                            textthree.setText("Tiendas");
+                            idcat2 = 7;
+                            imagefour.setImageResource(R.drawable.mall);
+                            textfour.setText("Plazas Comerciales");
+                            idcat3 = 8;
+
                         }else if(idPerfil.equals("8")){
                             imageone.setImageResource(R.drawable.museos);
                             textone.setText("Museos");
                             idcat = 4;
-                            imagetwo.setImageResource(R.drawable.tiendas);
-                            texttwo.setText("Tiendas");
-                            idcat1 = 7;
-                            imagetwo.setImageResource(R.drawable.monumentos);
+                            imagetwo.setImageResource(R.drawable.parques);
+                            texttwo.setText("Parques");
+                            idcat1 = 9;
+                            imagethree.setImageResource(R.drawable.monumentos);
                             texttwo.setText("Monumentos");
-                            idcat1 = 3;
+                            idcat2 = 3;
                             imagefour.setImageResource(R.drawable.mall);
                             textfour.setText("Plazas Comerciales");
                             idcat3 = 8;
-                        }else if(idPerfil.equals("9")){
+
+                        }else if(idPerfil.equals("10")){
+                            imageone.setImageResource(R.drawable.museos);
+                            textone.setText("Museos");
+                            idcat = 4;
+                            imagetwo.setImageResource(R.drawable.restaurantes);
+                            texttwo.setText("Restaurantes");
+                            idcat1 = 2;
+                            imagethree.setImageResource(R.drawable.monumentos);
+                            textthree.setText("Monumentos");
+                            idcat2 = 3;
+                            imagefour.setImageResource(R.drawable.mall);
+                            textfour.setText("Plazas Comerciales");
+                            idcat3 = 8;
+
+                        }else if(idPerfil.equals("11")){
+                            imageone.setImageResource(R.drawable.bancos);
+                            textone.setText("Bancos");
+                            idcat = 5;
+                            imagetwo.setImageResource(R.drawable.tiendas);
+                            texttwo.setText("Tiendas");
+                            idcat1 = 7;
+                            imagethree.setImageResource(R.drawable.restaurantes);
+                            textthree.setText("Restaurantes");
+                            idcat2 = 2;
+                            imagefour.setImageResource(R.drawable.mall);
+                            textfour.setText("Plazas Comerciales");
+                            idcat3 = 8;
+                        }else if(idPerfil.equals("13")){
                             imageone.setImageResource(R.drawable.restaurantes);
                             textone.setText("Restaurantes");
                             idcat = 2;
@@ -222,96 +242,45 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                             textfour.setText("Plazas Comerciales");
                             idcat3 = 8;
                         }
-                        else if(idPerfil.equals("10")){
+                        else if(idPerfil.equals("14")){
                             imageone.setImageResource(R.drawable.farmacias);
                             textone.setText("Farmacias");
                             idcat = 6;
-                            imagetwo.setImageResource(R.drawable.bancos);
-                            texttwo.setText("Bancos");
-                            idcat1 = 5;
-                            imagethree.setImageResource(R.drawable.monumentos);
-                            textthree.setText("Monumentos");
-                            idcat2 = 3;
+                            imagetwo.setImageResource(R.drawable.otros);
+                            texttwo.setText("Otros");
+                            idcat1 = 10;
+                            imagethree.setImageResource(R.drawable.restaurantes);
+                            textthree.setText("Restaurantes");
+                            idcat2 = 2;
                             imagefour.setImageResource(R.drawable.museos);
                             textfour.setText("Museos");
                             idcat3 = 4;
                         }
                         // click en la imagen uno
                         imageone.setOnClickListener(new View.OnClickListener() {
-
-                            int dato = idcat ;
-                            //@Override
                             public void onClick(View v) {
-                                SharedPreferences cat;
-                                cat = getContext().getSharedPreferences("categoria",MODE_PRIVATE);
-                                editarCat=cat.edit();
-                                editarCat.putInt("idCat",dato);
-                                editarCat.commit();
-                                String fragmentTemp="com.ut3.ehg.turismotepic.CategoriaActivity";
-                                DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-                                FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
-                                tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp)).addToBackStack("tag");
-                                tx.commit();
-                                drawer.closeDrawer(GravityCompat.START);
+                                fragment(idcat);
                             }
                         });
 
 
                         // click en la imagen dos
                         imagetwo.setOnClickListener(new View.OnClickListener() {
-
-                            int dato = idcat1 ;
-                            //@Override
                             public void onClick(View v) {
-                                SharedPreferences cat;
-                                cat = getContext().getSharedPreferences("categoria",MODE_PRIVATE);
-                                editarCat=cat.edit();
-                                editarCat.putInt("idCat",dato);
-                                editarCat.commit();
-                                String fragmentTemp="com.ut3.ehg.turismotepic.CategoriaActivity";
-                                DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-                                FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
-                                tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp)).addToBackStack("tag");
-                                tx.commit();
-                                drawer.closeDrawer(GravityCompat.START);
+                                fragment(idcat1);
                             }
                         });
                         // click en la imagen tres
                         imagethree.setOnClickListener(new View.OnClickListener() {
-
-                            int dato = idcat2 ;
-                            //@Override
                             public void onClick(View v) {
-                                SharedPreferences cat;
-                                cat = getContext().getSharedPreferences("categoria",MODE_PRIVATE);
-                                editarCat=cat.edit();
-                                editarCat.putInt("idCat",dato);
-                                editarCat.commit();
-                                String fragmentTemp="com.ut3.ehg.turismotepic.CategoriaActivity";
-                                DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-                                FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
-                                tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp)).addToBackStack("tag");
-                                tx.commit();
-                                drawer.closeDrawer(GravityCompat.START);
+
+                                fragment(idcat2);
                             }
                         });
                         //click en la imagen cuatro
                         imagefour.setOnClickListener(new View.OnClickListener() {
-
-                            int dato = idcat3 ;
-                            //@Override
                             public void onClick(View v) {
-                                SharedPreferences cat;
-                                cat = getContext().getSharedPreferences("categoria",MODE_PRIVATE);
-                                editarCat=cat.edit();
-                                editarCat.putInt("idCat",dato);
-                                editarCat.commit();
-                                String fragmentTemp="com.ut3.ehg.turismotepic.CategoriaActivity";
-                                DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-                                FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
-                                tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp)).addToBackStack("tag");
-                                tx.commit();
-                                drawer.closeDrawer(GravityCompat.START);
+                                fragment(idcat3);
                             }
                         });
 
@@ -329,16 +298,27 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
 
                 parametros.put("usuario", usuario);
                 parametros.put("pass", pass);
-                parametros.put("operacion", "a");
-
-                System.out.println(" Usuario y contrra es" +usuario + pass);
+                parametros.put("operacion", "perfiles");
 
                 return parametros;
             }
         };
 
         rqt.add(strq);
+    }
 
+    public void fragment(int dato){
+        SharedPreferences cat;
+        cat = getContext().getSharedPreferences("categoria",MODE_PRIVATE);
+        editarCat=cat.edit();
+        editarCat.putInt("idCat",dato);
+        editarCat.commit();
+        String fragmentTemp="com.ut3.ehg.turismotepic.CategoriaActivity";
+        DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+        FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.lframe, Fragment.instantiate(getContext(), fragmentTemp)).addToBackStack("tag");
+        tx.commit();
+        drawer.closeDrawer(GravityCompat.START);
     }
 }
 

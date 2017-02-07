@@ -8,13 +8,6 @@ import android.database.sqlite.SQLiteException;
 
 import com.ut3.ehg.turismotepic.db.db_pois;
 
-import static com.ut3.ehg.turismotepic.db.db_usuarios.COLUMN_NAME_ACCOMPANYING;
-import static com.ut3.ehg.turismotepic.db.db_usuarios.COLUMN_NAME_EDAD;
-import static com.ut3.ehg.turismotepic.db.db_usuarios.COLUMN_NAME_MOTIVO;
-import static com.ut3.ehg.turismotepic.db.db_usuarios.COLUMN_NAME_ORIGEN;
-import static com.ut3.ehg.turismotepic.db.db_usuarios.COLUMN_NAME_PASS;
-import static com.ut3.ehg.turismotepic.db.db_usuarios.COLUMN_NAME_SEXO;
-import static com.ut3.ehg.turismotepic.db.db_usuarios.COLUMN_NAME_USUARIO;
 
 /**
  * Created by LAB-DES-05 on 31/10/2016.
@@ -54,17 +47,5 @@ public class rc_pois {
         return c;
     }
 
-    public ContentValues generarContentValues(String Usuario, String Pass, String Sexo, String Motivo, String Origen, String Acompañantes, String Edad, String Perfil){
-        ContentValues valores = new ContentValues();
-        valores.put(COLUMN_NAME_USUARIO,Usuario);
-        valores.put(COLUMN_NAME_PASS,Pass);
-        valores.put(COLUMN_NAME_EDAD,Edad);
-        valores.put(COLUMN_NAME_SEXO,Sexo);
-        valores.put(COLUMN_NAME_ORIGEN,Origen);
-        valores.put(COLUMN_NAME_MOTIVO,Motivo);
-        valores.put(COLUMN_NAME_ACCOMPANYING,Acompañantes);
-        valores.put(COLUMN_NAME_ACCOMPANYING,Perfil);
 
-        return valores;
-    }
 }

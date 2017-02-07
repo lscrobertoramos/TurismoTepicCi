@@ -93,6 +93,8 @@ public class DetalladoActivity extends Fragment implements View.OnClickListener 
             iv1.setImageDrawable(drawable);
         }
 
+        checkLocation();
+
         return root;
     }
 
@@ -162,7 +164,7 @@ public class DetalladoActivity extends Fragment implements View.OnClickListener 
         final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle("Enable Location")
                 .setMessage("Su ubicación esta desactivada.\npor favor active su ubicación " +
-                        "usa esta app")
+                        "para el correcto funcionamiento de esta app")
                 .setPositiveButton("Configuración de ubicación", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {

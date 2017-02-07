@@ -98,11 +98,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_encuesta) {
             fragmentTemp="com.ut3.ehg.turismotepic.EncuestaActivity";
             changeFragment(fragmentTemp);
-        } else if (id == R.id.nav_logout) {
+        }else if (id == R.id.nav_ayuda) {
+            Intent intent = new Intent(this, Ayuda.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_logout) {
             finish();
         }
-
-
         return true;
     }
 

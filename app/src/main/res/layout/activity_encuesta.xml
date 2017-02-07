@@ -293,7 +293,9 @@
                     android:text=""
                     android:ems="10"
                     android:id="@+id/opinionText"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:maxLength="50"
+                    />
 
 
             </LinearLayout>

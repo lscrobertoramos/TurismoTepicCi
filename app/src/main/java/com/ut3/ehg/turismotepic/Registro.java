@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
@@ -34,26 +33,20 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.ut3.ehg.turismotepic.db.db_acompanying;
 import com.ut3.ehg.turismotepic.db.db_motivo;
 import com.ut3.ehg.turismotepic.db.db_origen;
-import com.ut3.ehg.turismotepic.db.db_usuarios;
-import com.ut3.ehg.turismotepic.rc.rc_usuarios;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Registro extends Activity{
+public class Registro extends conexion{
     private String datoSexo;
     private EditText edad, usuario, pass;
     private TextView motivo, acompañantes, origen, sexo;
     private RadioButton rbHombre, rbMujer;
     private RadioGroup rdgGrupo;
-    private rc_usuarios rcUsuarios;
-    private RequestQueue rqt;
-    private Context ctx;
-    private String url = "http://158.97.121.65/WebServiceT2/proceso.php";
+    //private rc_usuarios rcUsuarios;
 
-    private StringRequest strq;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -67,7 +60,7 @@ public class Registro extends Activity{
         db_motivo dataMotivo = new db_motivo(this);
         db_origen dataOrigen = new db_origen(this);
         final db_acompanying dataAcompañante = new db_acompanying(this);
-        final db_usuarios dataUsuarios = new db_usuarios(this);
+        //final db_usuarios dataUsuarios = new db_usuarios(this);
         ctx = Registro.this;
 
         rqt = Volley.newRequestQueue(ctx);
@@ -166,29 +159,37 @@ public class Registro extends Activity{
                     int EdadP = Integer.parseInt(Edad);
                     String Perfil = "";
                     System.out.println("la edad es de " + EdadP);
+                    System.out.println(" El sexo es " +Sexo);
 
-                    if (EdadP >= 65) {
-                        Perfil = "10";
-                    } else if (Motivo.equals("Negocio") && Acompañantes.equals("Pareja")) {
-                        Perfil = "2";
-                    } else if (Motivo.equals("Negocio") && Acompañantes.equals("Familia")) {
+                    if (Motivo.equals("Negocio") && Acompañantes.equals("Pareja")) {
                         Perfil = "3";
-                    } else if (Motivo.equals("Negocio") && Acompañantes.equals("Compañero de trabajo")) {
+                    } else if (Motivo.equals("Negocio") && Acompañantes.equals("Familia")) {
                         Perfil = "4";
-                    } else if (Motivo.equals("Placer") && Acompañantes.equals("Solo")) {
+                    } else if (Motivo.equals("Negocio") && Acompañantes.equals("Compañero de trabajo")) {
                         Perfil = "5";
-                    } else if (Motivo.equals("Placer") && Acompañantes.equals("Pareja")) {
+                    } else if (Motivo.equals("Placer") && Acompañantes.equals("Solo") && Sexo.equals("Hombre")) {
                         Perfil = "6";
-                    } else if (Motivo.equals("Placer") && Acompañantes.equals("Familia")) {
+                    } else if (Motivo.equals("Placer") && Acompañantes.equals("Solo") && Sexo.equals("Mujer")) {
                         Perfil = "7";
-                    } else if (Motivo.equals("Placer") && Acompañantes.equals("Compañero de trabajo")) {
+                    } else if (Motivo.equals("Placer") && Acompañantes.equals("Pareja") || Motivo.equals("Placer") && Acompañantes.equals("Familia")) {
                         Perfil = "8";
-                    } else if (Motivo.equals("Compras") && Acompañantes.equals("Solo") || Motivo.equals("Compras") && Acompañantes.equals("Pareja") || Motivo.equals("Compras") && Acompañantes.equals("Familia") || Motivo.equals("Compras") && Acompañantes.equals("Compañero de trabajo")) {
-                        Perfil = "9";
-                    } else if (Motivo.equals("Negocio") && Acompañantes.equals("Solo")) {
-
+                    } else if (Motivo.equals("Placer") && Acompañantes.equals("Compañero de trabajo")) {
+                        Perfil = "10";
+                    } else if (Motivo.equals("Compras") && Acompañantes.equals("Solo") || Motivo.equals("Compras") && Acompañantes.equals("Pareja") || Motivo.equals("Compras") && Acompañantes.equals("Compañero de trabajo")) {
+                        Perfil = "11";
+                    } else if (Motivo.equals("Compras") && Acompañantes.equals("Familia")) {
+                        Perfil = "13";
+                    } else if (Motivo.equals("Negocio") && Acompañantes.equals("Solo") && Sexo.equals("Hombre")) {
                         Perfil = "1";
                     }
+                    else if (Motivo.equals("Negocio") && Acompañantes.equals("Solo") && Sexo.equals("Mujer")) {
+                        Perfil = "2";
+                    }
+
+                    if (EdadP >= 65) {
+                        Perfil = "14";
+                    }
+
                     final String Origen = spinnerOrigen.getSelectedItem().toString();
                     seleccionar(Sexo, Usuario, Pass, Edad, Motivo, Acompañantes, Perfil, Origen);
 
@@ -271,7 +272,7 @@ public class Registro extends Activity{
                 parametros.put("acompañante", Acompañante);
                 parametros.put("perfil", Perfil);
                 parametros.put("origen", Origen);
-                parametros.put("operacion", "r");
+                parametros.put("operacion", "registro");
 
               //  System.out.println("Los valores son" + Usuario + " " + Sexo + " " + Pass + " " + Edad + " " + Motivo + " " + Acompañante + " " + Perfil + " " + Origen);
 

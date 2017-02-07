@@ -86,20 +86,18 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     Context cntx;
     LocationProvider loc;
     String latitud, longitud, destino;
-    Double latitude, longitude;
+
     int cat;
     Location location;
-    LocationManager lm;
+
 
     //prueba
     public Criteria criteria;
     public String bestProvider;
-    Intent intentThatCalled;
-    String voice2text;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final AppBarLayout appBarLayout;
+
         root = (ViewGroup) inflater.inflate(R.layout.fragment_maps, null);
         cntx = container.getContext();
 
@@ -389,6 +387,10 @@ public class MapsActivity extends Fragment implements LocationListener, OnMapRea
     @Override
     public void onProviderDisabled(String provider) {
       Toast.makeText(getActivity(), "GPS DESACTIVADO", Toast.LENGTH_LONG).show();
+        progressDialog.dismiss();
+
+
+
     }
 
 

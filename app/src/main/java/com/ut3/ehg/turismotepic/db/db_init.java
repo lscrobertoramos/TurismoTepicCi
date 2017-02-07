@@ -21,10 +21,12 @@ public class db_init extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.i(TAG,"INICINNADO.......");
-        Log.i(TAG,db_usuarios.CREATE_TABLE);
-        db.execSQL(db_usuarios.CREATE_TABLE);
-        Log.i(TAG,db_usuarios.SQL_INSERT_ENTRIES);
-        db.execSQL(db_usuarios.SQL_INSERT_ENTRIES);
+
+        Log.i(TAG,db_pois.CREATE_TABLE);
+        db.execSQL(db_pois.CREATE_TABLE);
+        Log.i(TAG,db_pois.SQL_INSERT_ENTRIES);
+        db.execSQL(db_pois.SQL_INSERT_ENTRIES);
+
         //------------------------------------------------------------------------------------------
         Log.i(TAG,db_motivo.CREATE_TABLE);
         db.execSQL(db_motivo.CREATE_TABLE);
@@ -42,16 +44,12 @@ public class db_init extends SQLiteOpenHelper {
         db.execSQL(db_origen.SQL_INSERT_ENTRIES);
 
         //------------------------------------------------------------------------------------------
-        Log.i(TAG,db_pois.CREATE_TABLE);
-        db.execSQL(db_pois.CREATE_TABLE);
-        Log.i(TAG,db_pois.SQL_INSERT_ENTRIES);
-        db.execSQL(db_pois.SQL_INSERT_ENTRIES);
+
         //------------------------------------------------------------------------------------------
         Log.i(TAG,db_rank.CREATE_TABLE);
         db.execSQL(db_rank.CREATE_TABLE);
         //------------------------------------------------------------------------------------------
-        Log.i(TAG,db_encuesta.CREATE_TABLE);
-        db.execSQL(db_encuesta.CREATE_TABLE);
+
         //------------------------------------------------------------------------------------------
         Log.i(TAG,db_acompanying.CREATE_TABLE);
         db.execSQL(db_acompanying.CREATE_TABLE);
@@ -63,16 +61,14 @@ Log.i(TAG,"Finalizar....");
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(db_usuarios.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
+
         db.execSQL(db_motivo.SQL_DELETE_ENTRIES);
         db.execSQL(db_acompanying.SQL_DELETE_ENTRIES);
-        db.execSQL(db_encuesta.SQL_DELETE_ENTRIES);
+
         db.execSQL(db_origen.SQL_DELETE_ENTRIES);
         db.execSQL(db_pois.SQL_DELETE_ENTRIES);
         db.execSQL(db_rank.SQL_DELETE_ENTRIES);
-        db.execSQL(db_usuarios.SQL_DELETE_ENTRIES);
+
         onCreate(db);
     }
 

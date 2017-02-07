@@ -13,6 +13,10 @@
             android:id="@+id/nav_encuesta"
             android:icon="@mipmap/enc"
             android:title="@string/menu_enc" />
+        <item
+            android:id="@+id/nav_ayuda"
+            android:icon="@mipmap/enc"
+            android:title="INFORMACION" />
     </group>
     <item
         android:id="@+id/nav_logout"

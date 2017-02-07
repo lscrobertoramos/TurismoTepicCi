@@ -20,30 +20,26 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ut3.ehg.turismotepic.rc.rc_usuarios;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
-public class Login extends Activity {
+public class Login extends conexion{
 
-    private rc_usuarios rcUsuarios;
+
     private SharedPreferences loginPreferences,user;
     private SharedPreferences.Editor loginPrefsEditor,userEditor;
     private Boolean saveLogin;
 
-    private RequestQueue rqt;
-    private Context ctx;
-    private String url = "http://158.97.121.65/WebServiceT2/proceso.php";
-
-    private StringRequest strq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         ctx = Login.this;
 
@@ -53,9 +49,6 @@ public class Login extends Activity {
         Typeface roboto = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
         //Typeface beba = Typeface.createFromAsset(getAssets(), "fonts/BebasKai-Regular.otf");
         Typeface maven = Typeface.createFromAsset(getAssets(), "fonts/MavenPro-Regular.ttf");
-
-        System.out.println("Hola entro");
-
 
         final EditText etUsuarioL = (EditText) findViewById(R.id.etUsuarioLog);
         final EditText etPassL = (EditText) findViewById(R.id.etPassLog);
@@ -179,6 +172,7 @@ public class Login extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("error_servidor", error.toString());
+                Toast.makeText(ctx, "Error en el servidor", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -187,7 +181,7 @@ public class Login extends Activity {
 
                 parametros.put("usuario", usuario);
                 parametros.put("pass", pass);
-                parametros.put("operacion", "l");
+                parametros.put("operacion", "login");
 
                 return parametros;
             }
