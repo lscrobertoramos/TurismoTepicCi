@@ -37,11 +37,6 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
     Context cntx;
     ImageButton bmenu;
     SharedPreferences.Editor editarCat;
-    private RequestQueue rqt;
-    private Context ctx;
-    private String url = "http://158.97.121.65/WebServiceT2/proceso.php";
-
-    private StringRequest strq;
 
 
     @Override
@@ -51,15 +46,209 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
         cntx = container.getContext();
         bmenu = (ImageButton)root.findViewById(R.id.bmenu);
         bmenu.setOnClickListener(this);
-        ctx = getActivity();
-
-        rqt = Volley.newRequestQueue(ctx);
 
         SharedPreferences cat=this.getActivity().getSharedPreferences("user",MODE_PRIVATE);
-        String user = cat.getString("user", "");
-        String pass = cat.getString("pass", "");
 
-        perfil(user,pass);
+        ImageView imageone = (ImageView)root.findViewById(R.id.img1);
+        ImageView imagetwo = (ImageView)root.findViewById(R.id.img2);
+        ImageView imagethree = (ImageView)root.findViewById(R.id.img3);
+        ImageView imagefour = (ImageView)root.findViewById(R.id.img4);
+        TextView textone=(TextView)root.findViewById(R.id.text1);
+        TextView texttwo=(TextView)root.findViewById(R.id.text2);
+        TextView textthree=(TextView)root.findViewById(R.id.text3);
+        TextView textfour=(TextView)root.findViewById(R.id.text4);
+
+        String idPerfil = cat.getString("perfiles","1");
+
+        if(idPerfil.equals("1")){
+            imageone.setImageResource(R.drawable.restaurantes);
+            textone.setText("Restaurantes");
+            idcat = 2;
+            imagetwo.setImageResource(R.drawable.museos);
+            texttwo.setText("Museos");
+            idcat1 = 4;
+            imagethree.setImageResource(R.drawable.bancos);
+            textthree.setText("Bancos");
+            idcat2 = 5;
+            imagefour.setImageResource(R.drawable.monumentos);
+            textfour.setText("Monumentos");
+            idcat3 = 3;
+        }else if(idPerfil.equals("2")){
+            imageone.setImageResource(R.drawable.restaurantes);
+            textone.setText("Restaurantes");
+            idcat = 2;
+            imagetwo.setImageResource(R.drawable.mall);
+            texttwo.setText("Plazas comerciales");
+            idcat1 = 8;
+            imagethree.setImageResource(R.drawable.tiendas);
+            textthree.setText("Tiendas");
+            idcat2 = 7;
+            imagefour.setImageResource(R.drawable.bancos);
+            textfour.setText("Bancos");
+            idcat3 = 5;
+        }else if(idPerfil.equals("3")){
+            imageone.setImageResource(R.drawable.parques);
+            textone.setText("Parques");
+            idcat = 9;
+            imagetwo.setImageResource(R.drawable.museos);
+            texttwo.setText("Museos");
+            idcat1 = 4;
+            imagethree.setImageResource(R.drawable.restaurantes);
+            textthree.setText("Restaurantes");
+            idcat2 = 2;
+            imagefour.setImageResource(R.drawable.mall);
+            textfour.setText("Plazas Comerciales");
+            idcat3 = 8;
+        }else if(idPerfil.equals("4")){
+            imageone.setImageResource(R.drawable.restaurantes);
+            textone.setText("Restaurantes");
+            idcat = 2;
+            imagetwo.setImageResource(R.drawable.museos);
+            texttwo.setText("Museos");
+            idcat1 = 4;
+            imagethree.setImageResource(R.drawable.bancos);
+            textthree.setText("Bancos");
+            idcat2 = 5;
+            imagefour.setImageResource(R.drawable.mall);
+            textfour.setText("Plazas Comerciales");
+            idcat3 = 8;
+        }else if(idPerfil.equals("5")){
+            imageone.setImageResource(R.drawable.restaurantes);
+            textone.setText("Restaurantes");
+            idcat = 2;
+            imagetwo.setImageResource(R.drawable.bancos);
+            texttwo.setText("Bancos");
+            idcat1 = 5;
+            imagethree.setImageResource(R.drawable.museos);
+            textthree.setText("Museos");
+            idcat2 = 4;
+            imagefour.setImageResource(R.drawable.mall);
+            textfour.setText("Plazas Comerciales");
+            idcat3 = 8;
+        }else if(idPerfil.equals("6")){
+            imageone.setImageResource(R.drawable.museos);
+            textone.setText("Museos");
+            idcat = 4;
+            imagetwo.setImageResource(R.drawable.monumentos);
+            texttwo.setText("Monumentos");
+            idcat1 = 6;
+            imagethree.setImageResource(R.drawable.restaurantes);
+            textthree.setText("Restaurantes");
+            idcat2 = 2;
+            imagefour.setImageResource(R.drawable.mall);
+            textfour.setText("Plazas Comerciales");
+            idcat3 = 8;
+        }else if(idPerfil.equals("7")){
+            imageone.setImageResource(R.drawable.museos);
+            textone.setText("Museos");
+            idcat = 4;
+            imagetwo.setImageResource(R.drawable.bancos);
+            texttwo.setText("Bancos");
+            idcat1 = 5;
+            imagethree.setImageResource(R.drawable.tiendas);
+            textthree.setText("Tiendas");
+            idcat2 = 7;
+            imagefour.setImageResource(R.drawable.mall);
+            textfour.setText("Plazas Comerciales");
+            idcat3 = 8;
+
+        }else if(idPerfil.equals("8")){
+            imageone.setImageResource(R.drawable.museos);
+            textone.setText("Museos");
+            idcat = 4;
+            imagetwo.setImageResource(R.drawable.parques);
+            texttwo.setText("Parques");
+            idcat1 = 9;
+            imagethree.setImageResource(R.drawable.monumentos);
+            texttwo.setText("Monumentos");
+            idcat2 = 3;
+            imagefour.setImageResource(R.drawable.mall);
+            textfour.setText("Plazas Comerciales");
+            idcat3 = 8;
+
+        }else if(idPerfil.equals("10")){
+            imageone.setImageResource(R.drawable.museos);
+            textone.setText("Museos");
+            idcat = 4;
+            imagetwo.setImageResource(R.drawable.restaurantes);
+            texttwo.setText("Restaurantes");
+            idcat1 = 2;
+            imagethree.setImageResource(R.drawable.monumentos);
+            textthree.setText("Monumentos");
+            idcat2 = 3;
+            imagefour.setImageResource(R.drawable.mall);
+            textfour.setText("Plazas Comerciales");
+            idcat3 = 8;
+
+        }else if(idPerfil.equals("11")){
+            imageone.setImageResource(R.drawable.bancos);
+            textone.setText("Bancos");
+            idcat = 5;
+            imagetwo.setImageResource(R.drawable.tiendas);
+            texttwo.setText("Tiendas");
+            idcat1 = 7;
+            imagethree.setImageResource(R.drawable.restaurantes);
+            textthree.setText("Restaurantes");
+            idcat2 = 2;
+            imagefour.setImageResource(R.drawable.mall);
+            textfour.setText("Plazas Comerciales");
+            idcat3 = 8;
+        }else if(idPerfil.equals("13")){
+            imageone.setImageResource(R.drawable.restaurantes);
+            textone.setText("Restaurantes");
+            idcat = 2;
+            imagetwo.setImageResource(R.drawable.tiendas);
+            texttwo.setText("Tiendas");
+            idcat1 = 7;
+            imagethree.setImageResource(R.drawable.parques);
+            textthree.setText("Parques");
+            idcat2 = 9;
+            imagefour.setImageResource(R.drawable.mall);
+            textfour.setText("Plazas Comerciales");
+            idcat3 = 8;
+        }
+        else if(idPerfil.equals("14")){
+            imageone.setImageResource(R.drawable.farmacias);
+            textone.setText("Farmacias");
+            idcat = 6;
+            imagetwo.setImageResource(R.drawable.otros);
+            texttwo.setText("Otros");
+            idcat1 = 10;
+            imagethree.setImageResource(R.drawable.restaurantes);
+            textthree.setText("Restaurantes");
+            idcat2 = 2;
+            imagefour.setImageResource(R.drawable.museos);
+            textfour.setText("Museos");
+            idcat3 = 4;
+        }
+        // click en la imagen uno
+        imageone.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                fragment(idcat);
+            }
+        });
+
+
+        // click en la imagen dos
+        imagetwo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                fragment(idcat1);
+            }
+        });
+        // click en la imagen tres
+        imagethree.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                fragment(idcat2);
+            }
+        });
+        //click en la imagen cuatro
+        imagefour.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                fragment(idcat3);
+            }
+        });
+
 
         return root;
     }
@@ -73,239 +262,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             drawer.closeDrawer(GravityCompat.START);
     }
 
-    private void perfil(final String usuario, final String pass) {
 
-
-        strq = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("rta_servidor", response);
-                        //Toast.makeText(ctx, response, Toast.LENGTH_SHORT).show();
-
-
-                        ImageView imageone = (ImageView)root.findViewById(R.id.img1);
-                        ImageView imagetwo = (ImageView)root.findViewById(R.id.img2);
-                        ImageView imagethree = (ImageView)root.findViewById(R.id.img3);
-                        ImageView imagefour = (ImageView)root.findViewById(R.id.img4);
-                        TextView textone=(TextView)root.findViewById(R.id.text1);
-                        TextView texttwo=(TextView)root.findViewById(R.id.text2);
-                        TextView textthree=(TextView)root.findViewById(R.id.text3);
-                        TextView textfour=(TextView)root.findViewById(R.id.text4);
-
-                        String idPerfil = response;
-
-                        if(idPerfil.equals("1")){
-                            imageone.setImageResource(R.drawable.restaurantes);
-                            textone.setText("Restaurantes");
-                            idcat = 2;
-                            imagetwo.setImageResource(R.drawable.museos);
-                            texttwo.setText("Museos");
-                            idcat1 = 4;
-                            imagethree.setImageResource(R.drawable.bancos);
-                            textthree.setText("Bancos");
-                            idcat2 = 5;
-                            imagefour.setImageResource(R.drawable.monumentos);
-                            textfour.setText("Monumentos");
-                            idcat3 = 3;
-                        }else if(idPerfil.equals("2")){
-                            imageone.setImageResource(R.drawable.restaurantes);
-                            textone.setText("Restaurantes");
-                            idcat = 2;
-                            imagetwo.setImageResource(R.drawable.mall);
-                            texttwo.setText("Plazas comerciales");
-                            idcat1 = 8;
-                            imagethree.setImageResource(R.drawable.tiendas);
-                            textthree.setText("Tiendas");
-                            idcat2 = 7;
-                            imagefour.setImageResource(R.drawable.bancos);
-                            textfour.setText("Bancos");
-                            idcat3 = 5;
-                        }else if(idPerfil.equals("3")){
-                            imageone.setImageResource(R.drawable.parques);
-                            textone.setText("Parques");
-                            idcat = 9;
-                            imagetwo.setImageResource(R.drawable.museos);
-                            texttwo.setText("Museos");
-                            idcat1 = 4;
-                            imagethree.setImageResource(R.drawable.restaurantes);
-                            textthree.setText("Restaurantes");
-                            idcat2 = 2;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
-                        }else if(idPerfil.equals("4")){
-                            imageone.setImageResource(R.drawable.restaurantes);
-                            textone.setText("Restaurantes");
-                            idcat = 2;
-                            imagetwo.setImageResource(R.drawable.museos);
-                            texttwo.setText("Museos");
-                            idcat1 = 4;
-                            imagethree.setImageResource(R.drawable.bancos);
-                            textthree.setText("Bancos");
-                            idcat2 = 5;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
-                        }else if(idPerfil.equals("5")){
-                            imageone.setImageResource(R.drawable.restaurantes);
-                            textone.setText("Restaurantes");
-                            idcat = 2;
-                            imagetwo.setImageResource(R.drawable.bancos);
-                            texttwo.setText("Bancos");
-                            idcat1 = 5;
-                            imagethree.setImageResource(R.drawable.museos);
-                            textthree.setText("Museos");
-                            idcat2 = 4;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
-                        }else if(idPerfil.equals("6")){
-                            imageone.setImageResource(R.drawable.museos);
-                            textone.setText("Museos");
-                            idcat = 4;
-                            imagetwo.setImageResource(R.drawable.monumentos);
-                            texttwo.setText("Monumentos");
-                            idcat1 = 6;
-                            imagethree.setImageResource(R.drawable.restaurantes);
-                            textthree.setText("Restaurantes");
-                            idcat2 = 2;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
-                        }else if(idPerfil.equals("7")){
-                            imageone.setImageResource(R.drawable.museos);
-                            textone.setText("Museos");
-                            idcat = 4;
-                            imagetwo.setImageResource(R.drawable.bancos);
-                            texttwo.setText("Bancos");
-                            idcat1 = 5;
-                            imagethree.setImageResource(R.drawable.tiendas);
-                            textthree.setText("Tiendas");
-                            idcat2 = 7;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
-
-                        }else if(idPerfil.equals("8")){
-                            imageone.setImageResource(R.drawable.museos);
-                            textone.setText("Museos");
-                            idcat = 4;
-                            imagetwo.setImageResource(R.drawable.parques);
-                            texttwo.setText("Parques");
-                            idcat1 = 9;
-                            imagethree.setImageResource(R.drawable.monumentos);
-                            texttwo.setText("Monumentos");
-                            idcat2 = 3;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
-
-                        }else if(idPerfil.equals("10")){
-                            imageone.setImageResource(R.drawable.museos);
-                            textone.setText("Museos");
-                            idcat = 4;
-                            imagetwo.setImageResource(R.drawable.restaurantes);
-                            texttwo.setText("Restaurantes");
-                            idcat1 = 2;
-                            imagethree.setImageResource(R.drawable.monumentos);
-                            textthree.setText("Monumentos");
-                            idcat2 = 3;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
-
-                        }else if(idPerfil.equals("11")){
-                            imageone.setImageResource(R.drawable.bancos);
-                            textone.setText("Bancos");
-                            idcat = 5;
-                            imagetwo.setImageResource(R.drawable.tiendas);
-                            texttwo.setText("Tiendas");
-                            idcat1 = 7;
-                            imagethree.setImageResource(R.drawable.restaurantes);
-                            textthree.setText("Restaurantes");
-                            idcat2 = 2;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
-                        }else if(idPerfil.equals("13")){
-                            imageone.setImageResource(R.drawable.restaurantes);
-                            textone.setText("Restaurantes");
-                            idcat = 2;
-                            imagetwo.setImageResource(R.drawable.tiendas);
-                            texttwo.setText("Tiendas");
-                            idcat1 = 7;
-                            imagethree.setImageResource(R.drawable.parques);
-                            textthree.setText("Parques");
-                            idcat2 = 9;
-                            imagefour.setImageResource(R.drawable.mall);
-                            textfour.setText("Plazas Comerciales");
-                            idcat3 = 8;
-                        }
-                        else if(idPerfil.equals("14")){
-                            imageone.setImageResource(R.drawable.farmacias);
-                            textone.setText("Farmacias");
-                            idcat = 6;
-                            imagetwo.setImageResource(R.drawable.otros);
-                            texttwo.setText("Otros");
-                            idcat1 = 10;
-                            imagethree.setImageResource(R.drawable.restaurantes);
-                            textthree.setText("Restaurantes");
-                            idcat2 = 2;
-                            imagefour.setImageResource(R.drawable.museos);
-                            textfour.setText("Museos");
-                            idcat3 = 4;
-                        }
-                        // click en la imagen uno
-                        imageone.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                fragment(idcat);
-                            }
-                        });
-
-
-                        // click en la imagen dos
-                        imagetwo.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                fragment(idcat1);
-                            }
-                        });
-                        // click en la imagen tres
-                        imagethree.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-
-                                fragment(idcat2);
-                            }
-                        });
-                        //click en la imagen cuatro
-                        imagefour.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                fragment(idcat3);
-                            }
-                        });
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("error_servidor", error.toString());
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams()  {
-                Map<String, String> parametros = new HashMap<>();
-
-                parametros.put("usuario", usuario);
-                parametros.put("pass", pass);
-                parametros.put("operacion", "perfiles");
-
-                return parametros;
-            }
-        };
-
-        rqt.add(strq);
-    }
 
     public void fragment(int dato){
         SharedPreferences cat;

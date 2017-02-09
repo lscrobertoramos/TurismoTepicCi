@@ -41,7 +41,7 @@ public class EncuestaActivity extends Fragment {
     private RequestQueue rqt;
     private Context ctx;
 
-    private String url = "http://158.97.121.65/WebServiceT2/proceso.php";
+    private String url = "https://arcadia.cicese.mx/WebServiceT2/proceso.php ";//"http://158.97.121.65/WebServiceT2/proceso.php";
     private StringRequest strq;
 
     @Override

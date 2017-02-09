@@ -14,7 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 public class conexion extends  Activity{
     RequestQueue rqt;
     Context ctx;
-    String url = "http://158.97.121.65/WebServiceT2/proceso.php";
+    String url = "https://arcadia.cicese.mx/WebServiceT2/proceso.php ";//"http://158.97.121.65/WebServiceT2/proceso.php";
 
     StringRequest strq;
 

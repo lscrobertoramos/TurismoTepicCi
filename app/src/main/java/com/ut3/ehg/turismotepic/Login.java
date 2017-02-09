@@ -1,6 +1,7 @@
 package com.ut3.ehg.turismotepic;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +33,7 @@ public class Login extends conexion{
     private SharedPreferences loginPreferences,user;
     private SharedPreferences.Editor loginPrefsEditor,userEditor;
     private Boolean saveLogin;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -87,6 +89,8 @@ public class Login extends conexion{
                 if (etPassL.getText().length()==0){
                     etPassL.setError("Password vacio");
                 }else{
+                    progressDialog = ProgressDialog.show(ctx, "Espera",
+                            "Iniciando sesión", true);
                     login(etUsuarioL.getText().toString(), etPassL.getText().toString());
 
                 }
@@ -146,13 +150,17 @@ public class Login extends conexion{
                     @Override
                     public void onResponse(String response) {
                         Log.d("rta_servidor", response);
-                        Toast.makeText(ctx, response, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ctx, response, Toast.LENGTH_SHORT).show();
 
                         if (response.equals("Bienvenido")) {
+
+
 
                             userEditor.putString("user",usuario);
                             userEditor.putString("pass", pass);
                             userEditor.commit();
+
+
 
                             if (cbR.isChecked()) {
                                 loginPrefsEditor.putBoolean("saveLogin", true);
@@ -163,9 +171,9 @@ public class Login extends conexion{
                                 loginPrefsEditor.clear();
                                 loginPrefsEditor.commit();
                             }
-                            Intent intent = new Intent(Login.this, MainActivity.class);
-                            startActivity(intent);
-                            Login.this.finish();
+
+                            perfil(usuario,pass);
+
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -173,6 +181,7 @@ public class Login extends conexion{
             public void onErrorResponse(VolleyError error) {
                 Log.d("error_servidor", error.toString());
                 Toast.makeText(ctx, "Error en el servidor", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         }) {
             @Override
@@ -191,5 +200,45 @@ public class Login extends conexion{
 
     }
 
+    private void perfil(final String usuario, final String pass) {
+
+
+        strq = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("rta_servidor", response);
+                        //Toast.makeText(ctx, response, Toast.LENGTH_SHORT).show();
+
+                        userEditor.putString("perfiles", response);
+
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        startActivity(intent);
+
+                        Login.this.finish();
+                        progressDialog.dismiss();
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error_servidor", error.toString());
+                progressDialog.dismiss();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams()  {
+                Map<String, String> parametros = new HashMap<>();
+
+                parametros.put("usuario", usuario);
+                parametros.put("pass", pass);
+                parametros.put("operacion", "perfiles");
+
+                return parametros;
+            }
+        };
+
+        rqt.add(strq);
+    }
 
 }

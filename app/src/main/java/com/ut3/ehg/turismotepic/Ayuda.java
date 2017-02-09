@@ -11,14 +11,11 @@ import android.view.ViewGroup;
  * Created by LAB-DES-05 on 07/02/2017.
  */
 
-public class Ayuda extends Fragment {
+public class Ayuda extends Activity {
 
-    ViewGroup root;
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        //final AppBarLayout appBarLayout;
-        root = (ViewGroup) inflater.inflate(R.layout.ayuda, null);
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.ayuda);
     }
 }
