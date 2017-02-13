@@ -11,7 +11,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -26,10 +28,11 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.ut3.ehg.turismotepic.R.string.opinion;
 import static com.ut3.ehg.turismotepic.R.string.q1;
 
-public class sugerencias extends conexion {
+public class sugerencias extends Fragment {
 
     ImageButton btnEnviar;
     private RequestQueue rqt;
@@ -39,16 +42,19 @@ public class sugerencias extends conexion {
     private EditText opinion;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sugerencias);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup root;
 
-        ctx = sugerencias.this;
+
+        root = (ViewGroup) inflater.inflate(R.layout.activity_sugerencias, null);
+
+
+        ctx = getContext();
         rqt = Volley.newRequestQueue(ctx);
 
-        opinion = (EditText) findViewById(R.id.opinionText);
-        btnEnviar = (ImageButton) findViewById(R.id.btnEnviar);
-        final String Opinion = opinion.getText().toString();
+        opinion = (EditText) root.findViewById(R.id.opinionText);
+        btnEnviar = (ImageButton) root.findViewById(R.id.btnEnviar);
+
         btnEnviar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -58,11 +64,13 @@ public class sugerencias extends conexion {
 
             }
         });
+
+        return root;
     }
 
     private void sugerencias(final String Opinion) {
 
-        SharedPreferences cat=this.getApplicationContext().getSharedPreferences("user",MODE_PRIVATE);
+        SharedPreferences cat=this.getContext().getSharedPreferences("user",MODE_PRIVATE);
         final String user = cat.getString("user", "");
 
         System.out.println("El usuario que realizara su opinion es "+user);
@@ -74,7 +82,7 @@ public class sugerencias extends conexion {
                         Log.d("rta_servidor", response);
                         Toast.makeText(ctx, response, Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
 
                     }

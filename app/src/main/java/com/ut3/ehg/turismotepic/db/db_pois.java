@@ -75,7 +75,7 @@ public class db_pois extends SQLiteOpenHelper {
             "(40,2,'Casa Tigre ','Restaurante bufete mexicano para desayunar.','21.510665','-104.890114','8:00 - 13:00','0','115','f40_01'),"+
             "(41,10,'Sanitarios','Baños ubicados en la Presidencia Municipal.','21.512484','-104.893123','9:00 - 16:30 hrs','0','Entrada libre','f41_01'),"+
             "(42,10,'CICESE','Centro de Investigación Científica y de Educación Superior de Ensenada.','21.484181','-104.848551','8:00 - 16:30 hrs','0','Sin acceso','f42_01'),"+
-            "(43,4,'Museo interactivo','Centro de Investigación Científica y de Educación Superior de Ensenada.','21.482005','-104.849473','8:00 - 16:30 hrs','2','Sin acceso','f46_01'),"+
+            "(43,4,'Museo interactivo','Centro de Investigación Científica y de Educación Superior de Ensenada.','21.482005','-104.849473','8:00 - 16:30 hrs','2','Sin acceso','f47_01'),"+
             "(44,10,'Puerta de Hierro','El Centro Médico Puerta de Hierro Tepic inicia operaciones en septiembre de 2010.','21.480352','-104.849279','8:00 - 16:30 hrs','3','Sin acceso','f44_01')";
 
 
