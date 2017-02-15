@@ -17,7 +17,7 @@
     <string name="opinion">Puedes dejarnos tu opinio, comentario o sugerencia:</string>
     <string name="title_bueno">Bueno</string>
 
-    <string name="ayuda">Para un correcto funcionamiento de la Realidad Aumentada, y el trazo de rutas es necesario tener activado su GPS en todo momento. \n En versiones de android 6.0 o posteriores, es necesario seguir la siguiente secuencia para otorgar persimos a la aplicacion y funcione correctamente \n Configuracion > Aplicaciones > ConoceTepic > Permisos y otorgar todos los permisos solicitados.</string>
+    <string name="ayuda">Para un correcto funcionamiento de la Realidad Aumentada, y el trazo de rutas es necesario tener activado su GPS en todo momento. \n En versiones de android 6.0 o posteriores, es necesario seguir la siguiente secuencia para otorgar permisos a la aplicacion y funcione correctamente \n Configuracíon > Aplicaciones > ConoceTepic > Permisos y otorgar todos los permisos solicitados.</string>
 
     <string name="title_malo">Malo</string>
     <string name="title_regular">Regular</string>

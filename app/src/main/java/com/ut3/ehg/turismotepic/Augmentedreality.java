@@ -1,6 +1,7 @@
 package com.ut3.ehg.turismotepic;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.hardware.SensorManager;
 import android.location.Location;
@@ -39,7 +40,6 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
         poisdb.open();
         datos=poisdb.getPois();
         datos.moveToFirst();
-        int o=0;
         while(!datos.isAfterLast()) {
             array2.clear();
             for(int i=0;i<12;i++){
@@ -50,8 +50,6 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
             array.add(conv.toString());
             datos.moveToNext();
         }
-        System.out.println();
-
 
         //JSONArray jsonArray = new JSONArray(array);
 
@@ -68,6 +66,7 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
         {
             this.architectView = null;
             Toast.makeText(getApplicationContext(), "can't create Architect View", Toast.LENGTH_SHORT).show();
+
         }
 
         this.sensorAccuracyListener = this.getSensorAccuracyListener();

@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -236,6 +237,9 @@ public class Registro extends conexion{
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+
+
+
     private void seleccionar(final String Sexo, final String Usuario, final String Pass, final String Edad, final String Motivo, final String Acompañante, final String Perfil, final String Origen) {
 
         strq = new StringRequest(Request.Method.POST, url,
@@ -257,7 +261,7 @@ public class Registro extends conexion{
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("error_servidor", error.toString());
+                Toast.makeText(ctx, "No se pudo crear el usuario \nPor favor verifique su conexion a internet", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

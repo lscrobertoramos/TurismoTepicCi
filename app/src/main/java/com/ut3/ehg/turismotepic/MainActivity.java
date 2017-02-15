@@ -1,13 +1,21 @@
 package com.ut3.ehg.turismotepic;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +25,33 @@ import android.view.WindowManager;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
+    LocationManager locationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA);
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+
+
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.CAMERA)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+
+            }
+        }
+
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -46,6 +79,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onNavigationDrawerItemSelected(int posicion){
 
     }*/
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+             case MY_PERMISSIONS_REQUEST_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+
+                }
+                return;
+            }
+        }
+    }
+
+
 
     @Override
     public void onBackPressed() {
@@ -117,6 +170,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tx.replace(R.id.lframe, Fragment.instantiate(this, fragmentTemp)).addToBackStack("tag");
         tx.commit();
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    private boolean checkLocation() {
+        if (!isLocationEnabled())
+            showAlert();
+        return isLocationEnabled();
+    }
+
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Enable Location")
+                .setMessage("Su ubicación esta desactivada.\npor favor active su ubicación " +
+                        "para el correcto funcionamiento de esta app")
+                .setPositiveButton("Configuración de ubicación", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
+    }
+
+    private boolean isLocationEnabled() {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
 }

@@ -1,12 +1,19 @@
 package com.ut3.ehg.turismotepic;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +45,7 @@ public class Login extends conexion{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -129,7 +137,7 @@ public class Login extends conexion{
                     Login.this.finish();
                 }*/
             }
-            
+
         });
 
         btnRegistro.setOnClickListener(new View.OnClickListener(){
@@ -143,6 +151,7 @@ public class Login extends conexion{
 
     }
 
+    
     private void login(final String usuario, final String pass) {
         final CheckBox cbR = (CheckBox) findViewById(R.id.cbRemenberme);
         strq = new StringRequest(Request.Method.POST, url,
@@ -172,15 +181,21 @@ public class Login extends conexion{
                                 loginPrefsEditor.commit();
                             }
 
-                            perfil(usuario,pass);
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            startActivity(intent);
 
+                            Login.this.finish();
+                            progressDialog.dismiss();
+                        }else{
+                            progressDialog.dismiss();
+                            Toast.makeText(ctx, "Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("error_servidor", error.toString());
-                Toast.makeText(ctx, "Error en el servidor", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, "No se pudo buscar el usuario \nPor favor verifique su conexion a internet", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         }) {
@@ -199,46 +214,4 @@ public class Login extends conexion{
         rqt.add(strq);
 
     }
-
-    private void perfil(final String usuario, final String pass) {
-
-
-        strq = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("rta_servidor", response);
-                        //Toast.makeText(ctx, response, Toast.LENGTH_SHORT).show();
-
-                        userEditor.putString("perfiles", response);
-
-                        Intent intent = new Intent(Login.this, MainActivity.class);
-                        startActivity(intent);
-
-                        Login.this.finish();
-                        progressDialog.dismiss();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("error_servidor", error.toString());
-                progressDialog.dismiss();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams()  {
-                Map<String, String> parametros = new HashMap<>();
-
-                parametros.put("usuario", usuario);
-                parametros.put("pass", pass);
-                parametros.put("operacion", "perfiles");
-
-                return parametros;
-            }
-        };
-
-        rqt.add(strq);
-    }
-
 }
