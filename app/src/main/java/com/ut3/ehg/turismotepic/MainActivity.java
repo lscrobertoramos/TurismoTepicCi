@@ -1,5 +1,7 @@
 package com.ut3.ehg.turismotepic;
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,32 +28,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 2;
     LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA);
+
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-
-
-        if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.CAMERA)) {
-
-            } else {
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.CAMERA},
-                        MY_PERMISSIONS_REQUEST_CAMERA);
-
-            }
-        }
-
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -81,22 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }*/
 
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
-        switch (requestCode) {
-             case MY_PERMISSIONS_REQUEST_CAMERA: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                } else {
-
-                }
-                return;
-            }
-        }
-    }
 
 
 

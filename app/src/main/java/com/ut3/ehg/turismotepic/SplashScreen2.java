@@ -2,8 +2,11 @@ package com.ut3.ehg.turismotepic;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -19,6 +22,11 @@ public class SplashScreen2 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen2);
         TextView tx = (TextView)findViewById(R.id.text1);
+
+
+
+
+
         Typeface beba = Typeface.createFromAsset(getAssets(), "fonts/BebasKai-Regular.otf");
         tx.setTypeface(beba);
 

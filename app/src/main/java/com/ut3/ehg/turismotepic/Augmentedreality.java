@@ -1,12 +1,16 @@
 package com.ut3.ehg.turismotepic;
 
+import android.*;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.ut3.ehg.turismotepic.rc.rc_pois;
@@ -31,10 +35,27 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
     //ArrayList<String> array = new ArrayList<String>();
     ArrayList<String> array2 = new ArrayList<String>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_augmentedreality);
+
+        System.out.println("La informacion de la camara es " + this.getCameraPosition());
+
+
+
+
+        //JSONArray jsonArray = new JSONArray(array);
+        aumentedreality();
+        //System.out.println(jsonArray);
+
+
+
+
+    }
+
+    public void aumentedreality(){
 
         poisdb= new rc_pois(getApplicationContext());
         poisdb.open();
@@ -51,13 +72,9 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
             datos.moveToNext();
         }
 
-        //JSONArray jsonArray = new JSONArray(array);
-
-        //System.out.println(jsonArray);
-
-
         this.architectView = (ArchitectView)this.findViewById( R.id.architectView );
         final StartupConfiguration config = new StartupConfiguration(this.getWikitudeSDKLicenseKey(), StartupConfiguration.Features.Geo, this.getCameraPosition());
+        System.out.println("el resultado de config es " + config);
         this.architectView.callJavascript( "newData('" +array.toString() + "');" );
         try {
             this.architectView.onCreate( config );
@@ -65,8 +82,8 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
         } catch (RuntimeException ex)
         {
             this.architectView = null;
-            Toast.makeText(getApplicationContext(), "can't create Architect View", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(getApplicationContext(), "Tu dispositivo no es compatible con las funciones de realidad aumentada.", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         this.sensorAccuracyListener = this.getSensorAccuracyListener();
@@ -103,6 +120,7 @@ public class Augmentedreality extends Activity implements ArchitectViewHolderInt
         };
         this.locationProvider = getLocationProvider(this.locationListener);
     }
+
 
     @Override
     protected void onPostCreate( final Bundle savedInstanceState ) {

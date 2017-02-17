@@ -1,8 +1,12 @@
 package com.ut3.ehg.turismotepic;
 
+import android.*;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.ut3.ehg.turismotepic.rc.rc_init;
 
@@ -12,7 +16,8 @@ import java.util.TimerTask;
 public class SplashScreen extends Activity {
     // Set the duration of the splash screen
     private static final long SPLASH_SCREEN_DELAY = 2000;
-
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,4 +54,7 @@ public class SplashScreen extends Activity {
         database.close();
         //Log.i(TAG,"INIT_DB");
     }
+
+
+
 }

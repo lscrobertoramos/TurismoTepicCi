@@ -37,6 +37,7 @@ import static java.lang.Integer.parseInt;
 public class Login extends conexion{
 
 
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
     private SharedPreferences loginPreferences,user;
     private SharedPreferences.Editor loginPrefsEditor,userEditor;
     private Boolean saveLogin;
@@ -49,7 +50,21 @@ public class Login extends conexion{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
 
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.CAMERA)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+
+            }
+        }
 
         ctx = Login.this;
 
@@ -106,6 +121,7 @@ public class Login extends conexion{
 
 
 
+
 /*
                 String id =null;
                 rcUsuarios = new rc_usuarios(getApplicationContext());
@@ -151,7 +167,22 @@ public class Login extends conexion{
 
     }
 
-    
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+
+                }
+                return;
+            }
+        }
+    }
+
     private void login(final String usuario, final String pass) {
         final CheckBox cbR = (CheckBox) findViewById(R.id.cbRemenberme);
         strq = new StringRequest(Request.Method.POST, url,

@@ -76,7 +76,7 @@ var World = {
 
 		//show radar & set click-listener
                 		PoiRadar.show();
-                		$('#radarContainer').unbind('click');
+                		//$('#radarContainer').unbind('click');
 
 		// empty list of visible markers
 		World.markerList = [];
@@ -206,7 +206,7 @@ var World = {
 	requestDataFromLocal: function requestDataFromLocalFn(centerPointLatitude, centerPointLongitude, centerPointAltitude) {
 
 		// cuantos puntos crear
-		var poisToCreate = 12;
+		var poisToCreate = 20;
 		var poisID=[];
 		AR.logger.warning("Altitud" + centerPointAltitude);
 		for(var i=0;i<descripcion.length;i++){

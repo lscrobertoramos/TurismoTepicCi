@@ -1,7 +1,7 @@
 var PoiRadar = {
 
 		hide: function hideFn() {
-			AR.radar.enabled = false;
+			AR.radar.enabled = true;
 		},
 
 		show: function initFn() {

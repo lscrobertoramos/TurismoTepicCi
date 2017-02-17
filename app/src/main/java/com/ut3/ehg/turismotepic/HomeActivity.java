@@ -1,11 +1,16 @@
 package com.ut3.ehg.turismotepic;
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
@@ -32,6 +37,7 @@ import static java.lang.Integer.parseInt;
 
 public class HomeActivity extends Fragment implements View.OnClickListener {
 
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
     //private rc_usuarios rcUsuarios;
     private int idcat, idcat1, idcat2, idcat3;
     ViewGroup root;
@@ -44,6 +50,9 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
 
     private String url = "https://arcadia.cicese.mx/WebServiceT2/proceso.php ";//"http://158.97.121.65/WebServiceT2/proceso.php";
     private StringRequest strq;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
+
+
 
 
     @Override
@@ -58,16 +67,29 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
 
         rqt = Volley.newRequestQueue(ctx);
 
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+
+            }
+        }
 
         SharedPreferences cat=this.getActivity().getSharedPreferences("user",MODE_PRIVATE);
         String usuario = cat.getString("user","user");
         String pass = cat.getString("pass","pass");
         perfil(usuario,pass);
-
-    System.out.println("El usuario es  " +usuario + "La contrase;a es  " +pass);
-
         return root;
     }
+
 
     @Override
     public void onClick(View v) {
@@ -78,6 +100,22 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             drawer.closeDrawer(GravityCompat.START);
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+
+                }
+                return;
+            }
+        }
+    }
 
     private void perfil(final String usuario, final String pass) {
 
